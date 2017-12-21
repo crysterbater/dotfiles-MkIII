@@ -1,0 +1,18 @@
+#!/usr/bin/env fish
+
+set font '-*-lemon-medium-r-*-*-*-*-*-*-m-*-iso10646-1'
+set px 25
+set ph 25
+set pw 25
+set py 25
+
+set icon ⮭
+
+killall lemonbar
+pkill -f 'msc/cover'
+
+
+~/.smol/music &
+~/.smol/wrk.sh &
+
+echo "%{A:$HOME/.smol/admiral.sh &:}  $icon  %{A}" | lemonbar -b -p -f "$font" -g $pw"x$ph+$px+$py" -B '#E8DFD6' -F '#C2454E' | sh

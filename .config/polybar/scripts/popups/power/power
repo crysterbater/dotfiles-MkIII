@@ -1,0 +1,43 @@
+#!/bin/sh
+
+. $HOME/.config/polybar/lemonbar_config
+
+# Panel
+PW=180
+PH=70
+PX=1176
+PY=78
+
+
+n30f -d -x 1176 -y 48 $HOME/.config/polybar/popups/power/bg.png &
+
+
+echo " %{F$RED}%{F-} %{A:s:}Files%{A}  %{F$BLUE} %{F-}%{A:l:}Terminal%{A} %{F$MAGENTA} %{F-}%{A:e:}Exit%{A}" | lemonbar -g ${PW}x${PH}+${PX}+${PY} -f "$FONT1" -f "$FONT3" -B "$BG" -F "$FG" -dp | \
+    while :; do
+        read line
+        case $line in
+            'e')
+                p=$(pgrep -n lemonbar)
+                n=$(pgrep -n n30f)
+                kill $n
+                kill $p 
+                exit 
+                ;;
+            'l')
+                termite &
+                p=$(pgrep -n lemonbar)
+                n=$(pgrep -n n30f)
+                kill $n
+                kill $p 
+                exit                
+                ;;
+            's')
+                thunar &
+                p=$(pgrep -n lemonbar)
+                n=$(pgrep -n n30f)
+                kill $n
+                kill $p
+                exit
+                ;;
+        esac
+done

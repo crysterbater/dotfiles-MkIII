@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BROWSER=vivaldi-snapshot
+
+surfraw -browser=$BROWSER $(sr -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' | rofi -lines 9 -font "Ubuntu 11" -kb-row-select "Tab" -kb-row-tab "Control+space" -dmenu -mesg "Tab for Autocomplete" -i -p "Web Search: ")

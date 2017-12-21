@@ -1,0 +1,44 @@
+*colorUl:       #686868
+
+! special
+*.foreground:   #9f9d9d
+*.background:   #050404
+*.cursorColor:  #9f9d9d
+
+! black
+*.color0:       #090808
+*.color8:       #525252
+
+! red
+*.color1:       #d41c1d
+*.color9:       #d41c1d
+
+! green
+*.color2:       #484848
+*.color10:      #484848
+
+! yellow
+*.color3:       #5a5959
+*.color11:      #5a5959
+
+! blue
+*.color4:       #8e8e8e
+*.color12:      #8e8e8e
+
+! magenta
+*.color5:       #d41c1d
+*.color13:      #d41c1d
+
+! cyan
+*.color6:       #675f5f
+*.color14:      #675f5f
+
+! white
+*.color7:       #9f9d9d
+*.color15:      #9f9d9d
+
+! Rofi colors.
+rofi.color-window: #050404, #050404, #423F3F
+rofi.color-normal: #050404, #9F9D9D, #050404, #423F3F, #050404
+rofi.color-active: #050404, #9F9D9D, #050404, #423F3F, #050404
+rofi.color-urgent: #050404, #6A0D0E, #050404, #6A0D0E, #9F9D9D

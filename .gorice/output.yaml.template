@@ -1,0 +1,24 @@
+configs:
+    {{range .}}
+    {{.Name}}:
+        background: "{{.Data.terminal_background}}"
+        foreground: "{{.Data.terminal_foreground}}"
+        bold: "{{.Data.terminal_bold}}"
+        term-background: "{{.Data.terminal_termbackground}}"
+        font: "{{.Data.terminal_font}}"
+        colors:{{range .Data.terminal_colors}}
+            - "{{.}}"{{end}}
+        bar/i3-border: "{{.Data.border_pixels}}"
+        bar-border-all: "{{.Data.border_all}}"
+        bar-border-top: "{{.Data.border_top}}"
+        bar-border-bottom: "{{.Data.border_bottom}}"
+        bar-border-color: "{{.Data.border_color}}"
+        i3gap-inner: "{{.Data.gap_inner}}"
+        i3gap-outer: "{{.Data.gap_outer}}"
+        bar-height: "{{.Data.bar_height}}"
+        bar-width: "{{.Data.bar_width}}"
+        bar-radius: "{{.Data.bar_radius}}"
+        bar-bottom: "{{.Data.bar_bottom}}"
+        bar-background: "{{.Data.bar_background}}"
+        bar-font: "{{.Data.bar_font0}}"
+    {{end}}

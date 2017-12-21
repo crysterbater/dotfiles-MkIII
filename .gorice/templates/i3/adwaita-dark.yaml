@@ -1,0 +1,31 @@
+# background and foreground MUST exist and MUST be hex color values
+# names cannot contain '-'
+terminal:
+    background: "#212121"
+    foreground: "#F1F1F1"
+    bold: "#A9A9A9"
+    termbackground: "rgba(33,33,33,0.80)"
+    font: "Ubuntu Mono 10"
+    colors: ["#494949", "#D64937", "#19BC9C", "#FFFE5D", "#4E88CF", "#AF86C8", "#5DD5FF", "#969896", "#F6F6F6"]
+    # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
+
+border:
+    pixels: 2
+    all: 0
+    top: 0
+    bottom: 0
+    color: "#F1F1F1"
+
+
+gap:
+    inner: 15
+    outer: 0
+
+
+bar:
+    height: 24
+    width: "100%"
+    radius: 0
+    bottom: "false"
+    background: "#252E35"
+    font0: "DejaVu Sans Mono:size=10:antialias=false;2"

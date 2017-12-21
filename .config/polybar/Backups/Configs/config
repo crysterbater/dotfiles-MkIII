@@ -1,0 +1,428 @@
+; ;=====================================================
+; ;
+; ;   To learn more about how to configure Polybar
+; ;   go to https://github.com/jaagr/polybar
+; ;
+; ;   The README contains alot of information
+; ;
+; ;=====================================================
+
+; How to copy material font in vim:
+; Go to example font cheatsheet: https://material.io/icons/#ic_camera_enhance
+; <i class="material-icons">&#xE8FC;</i>
+; => type <C-v>ue8fc in insert mode
+
+; {{{ [colors]
+[colors]
+background = #ff1F2D3A
+background-alt = #ff2C3E50
+foreground-text = #FFFFFF
+foreground-icon = #6699CC
+foreground-inactive = #6699CC
+primary = #e74c3c
+secondary = #f39c12
+alert = #bd2c40
+
+red        = #e74c3c
+orange     = #f39c12
+yellow     = #f1c40f
+green      = #27AE60
+lightgreen = #2ecc71
+cyan       = #16a085
+; }}}
+; {{{ [bar/holybar]
+[bar/holybar]
+monitor = eDP1
+width = 100%
+height = 25
+fixed-center = false
+
+; space between elements in a module
+spacing = 1
+
+background = ${colors.background}
+foreground = ${colors.foreground-text}
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 0
+module-margin-right = 3
+
+; font-0 = Inconsolata:mono:bold:pixelsize=9;2
+font-0 = "roboto mono:bold:pixelsize=8;2"
+font-1 = MaterialIcons:size=12;3
+font-2 = fontawesome:pixelsize=10;1
+font-3 = "DejaVu Math TeX Gyre:pixelsize=10;1"
+font-4 = "DejaVu Sans:pixelsize=10;1"
+
+modules-left = i3 mpd
+modules-right = wired-network wireless-network cpu memory filesystem home volume battery date time powermenu
+
+; tray-position = right
+tray-padding = 2
+; }}}
+; {{{ [module/filesystem]
+[module/filesystem]
+type = internal/fs
+interval = 10
+
+mount-0 = /
+
+format-mounted-prefix-foreground = ${colors.foreground-icon}
+format-mounted-prefix = " "
+label-mounted = %used%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-icon}
+
+format-mounted   = <label-mounted>
+format-unmounted = <label-unmounted>
+; }}}
+; {{{ [module/home]
+[module/home]
+type = internal/fs
+interval = 10
+
+mount-0 = /home
+
+format-mounted-prefix-foreground = ${colors.foreground-icon}
+format-mounted-prefix = " "
+label-mounted = %used%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-icon}
+
+format-mounted   = <label-mounted>
+format-unmounted = <label-unmounted>
+; }}}
+; {{{ [module/i3]
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+; pin-workspaces = true
+
+label-mode-padding = 1
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.orange}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-foreground = ${colors.foreground-icon}
+label-focused-background = ${colors.background-alt}
+label-focused-padding    = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-foreground = ${colors.foreground-inactive}
+label-unfocused-padding    = ${self.label-focused-padding}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding    = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.primary}
+label-urgent-padding    = ${self.label-focused-padding}
+
+; strip-wsnumbers = true
+
+; NOTE: The label needs to match the name of the i3 workspace
+ws-icon-default = 
+ws-icon-1 = 1;
+ws-icon-2 = 2;
+ws-icon-3 = 3;
+ws-icon-4 = 4;
+ws-icon-5 = 5;
+ws-icon-6 = 6;
+ws-icon-7 = 7;
+ws-icon-8 = 8;
+ws-icon-9 = 9;
+ws-icon-0 = 0;
+; }}}
+; {{{ [module/mpd]
+[module/mpd]
+type = internal/mpd
+; <label-song>
+format-online = <icon-prev> <icon-stop> <toggle> <icon-next> <icon-repeat> <icon-random> <label-song>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-random = 
+icon-repeat = 
+
+icon-stop-foreground  = ${colors.foreground-icon}
+toggle-on-foreground  = ${colors.foreground-text}
+toggle-off-foreground = ${colors.foreground-inactive}
+label-song-foreground = ${colors.foreground-icon}
+
+label-song = %title:2:25:...%
+label-offline =  mpd is offline
+; }}}
+; {{{ [module/cpu]
+[module/cpu]
+type = internal/cpu
+interval = 0.7
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-icon}
+format = <ramp-coreload>
+
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+
+ramp-coreload-0-foreground = ${colors.green}
+ramp-coreload-1-foreground = ${colors.green}
+ramp-coreload-2-foreground = ${colors.yellow}
+ramp-coreload-3-foreground = ${colors.yellow}
+ramp-coreload-4-foreground = ${colors.orange}
+ramp-coreload-5-foreground = ${colors.orange}
+ramp-coreload-6-foreground = ${colors.red}
+ramp-coreload-7-foreground = ${colors.red}
+; }}}
+; {{{ [module/memory]
+[module/memory]
+type = internal/memory
+interval = 2
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-icon}
+
+label = %percentage_used%%
+; }}}
+; {{{ [module/wireless-network]
+[module/wireless-network]
+type = internal/network
+interval = 3.0
+
+; $ ip link show
+interface = wlo1
+format-connected = <ramp-signal><label-connected>
+label-connected = %essid% %signal%
+
+;
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+
+ramp-signal-0-foreground = ${colors.red}
+ramp-signal-1-foreground = ${colors.foreground-icon}
+ramp-signal-2-foreground = ${colors.foreground-icon}
+ramp-signal-3-foreground = ${colors.foreground-icon}
+ramp-signal-4-foreground = ${colors.foreground-icon}
+
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${colors.red}
+animation-packetloss-framerate = 500
+; }}}
+; {{{ [module/wired-network]
+[module/wired-network]
+type = internal/network
+interval = 2.0
+
+interface = eno1
+format-connected-prefix-foreground = ${colors.foreground-icon}
+label-connected = %{F#16A085}%{F-} %upspeed% %{F#16A085}%{F-} %downspeed%
+; }}}
+; {{{ [module/date]
+[module/date]
+type = internal/date
+interval = 60
+
+date = "%a, %b %d"
+date-alt = "%d/%m/%Y"
+
+format-prefix =" "
+format-prefix-foreground = ${colors.foreground-icon}
+label = %date%
+; }}}
+; {{{ [module/time]
+[module/time]
+type = internal/date
+interval = 60
+
+time = "%I%{F#84888b}:%{F-}%M %p"
+; time-alt = " %I:%M:%S %p"
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-icon}
+label = %time%
+; }}}
+; {{{ [module/volume]
+[module/volume]
+type = internal/volume
+
+; Soundcard to be used
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+format-volume = <ramp-volume><label-volume>
+label-volume = %percentage%%
+
+format-muted-prefix = " "
+format-muted-prefix-foreground = ${colors.foreground-icon}
+label-muted = "[M]"
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+ramp-volume-0-foreground = ${colors.foreground-icon}
+ramp-volume-1-foreground = ${colors.foreground-icon}
+ramp-volume-2-foreground = ${colors.foreground-icon}
+; }}}
+; {{{ [module/battery]
+[module/battery]
+type = internal/battery
+
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+full-at = 98
+poll-interval = 5
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full-prefix = " "
+label-full =  %percentage%%
+
+format-full-prefix-foreground = ${colors.foreground-icon}
+ramp-capacity-foreground      = ${colors.foreground-icon}
+ramp-capacity-0-foreground    = ${colors.red}
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+
+animation-charging-foreground = ${colors.foreground-icon}
+animation-charging-framerate = 750
+; }}}
+; {{{ [module/powermenu]
+[module/powermenu]
+type = custom/menu
+expand-right = false
+
+label-open = 
+label-close = 
+label-separator = |
+
+label-close-foreground     = ${colors.red}
+label-separator-foreground = ${colors.foreground-icon}
+
+menu-0-0 = 
+menu-0-0-exec = i3-msg exit
+menu-0-1 = 
+menu-0-1-exec = systemctl reboot
+menu-0-2 = 
+menu-0-2-exec = systemctl poweroff
+; }}}
+
+; {{{ [bar/molybar]
+[bar/molybar]
+bottom = true
+
+width = ${bar/holybar.width}
+height = ${bar/holybar.height}
+fixed-center = false
+
+spacing = ${bar/holybar.spacing}
+
+border-top-size = 1
+border-top-color = ${colors.background-alt}
+
+background = ${bar/holybar.background}
+foreground = ${bar/holybar.foreground}
+
+padding-left  = ${bar/holybar.padding-left}
+padding-right = ${bar/holybar.padding-right}
+
+module-margin-left  = ${bar/holybar.module-margin-left}
+module-margin-right = ${bar/holybar.module-margin-right}
+
+font-0 = ${bar/holybar.font-0}
+font-1 = ${bar/holybar.font-1}
+font-2 = ${bar/holybar.font-2}
+font-3 = ${bar/holybar.font-3}
+font-4 = ${bar/holybar.font-4}
+
+modules-left = weather
+modules-center = news
+modules-right = gmail pac_update trash
+; }}}
+; {{{ [module/weather]
+[module/weather]
+type = custom/script
+
+tail = true
+exec = bash -l -c '$HOME/.config/polybar/weather/weather.py'
+; }}}
+; {{{ [module/gmail]
+[module/gmail]
+type = custom/script
+
+tail = true
+exec = bash -l -c '$HOME/.config/polybar/gmail/launch.sh'
+click-left = xdg-open https://mail.google.com
+; }}}
+; {{{ [module/pac_update]
+[module/pac_update]
+type = custom/script
+interval = 1200
+
+exec = bash -l -c $HOME/.config/polybar/pac_update/main
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+
+click-left  = bash -l -c '$HOME/.config/polybar/pac_update/main update_pac'
+click-right = bash -l -c '$HOME/.config/polybar/pac_update/main update_aur'
+click-middle = bash -l -c '$HOME/.config/polybar/pac_update/main list_packages'
+; }}}
+; {{{ [module/trash]
+[module/trash]
+type = custom/script
+interval = 3
+
+format-prefix-foreground = ${colors.foreground-icon}
+format-prefix = " "
+exec = bash -l -c '$HOME/.config/polybar/trash/trash.sh'
+
+click-left  = bash -l -c '$HOME/.config/polybar/trash/trash.sh open'
+click-right = bash -l -c '$HOME/.config/polybar/trash/trash.sh clean'
+; }}}
+; {{{ [module/news]
+[module/news]
+type = custom/script
+
+tail = true
+exec = bash -l -c '$HOME/.config/polybar/news/launch.sh'
+
+click-left = $HOME/.config/polybar/news/open_url
+; }}}
+
+; vim:ft=dosini foldmethod=marker

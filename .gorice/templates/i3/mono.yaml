@@ -1,0 +1,32 @@
+# background and foreground MUST exist and MUST be hex color values
+# names cannot contain '-'
+terminal:
+    background: "#000000"
+    foreground: "#bcbcbc"
+    bold: "#EEEEEC"
+    termbackground: "rgba(0,0,0,0.80)"
+    font: "Ubuntu Mono 10"
+    colors: ["#292929", "#494949", "#696969", "#B3B3B3", "#898989", "#595959", "#969696", "#D7D7D7", "#EEEEEC"]
+    # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
+
+border:
+    pixels: 4
+    all: 0
+    top: 0
+    bottom: 0
+    color: "#000000"
+
+
+gap:
+    inner: 20
+    outer: 0
+
+
+bar:
+    height: 24
+    width: "100%"
+    radius: 0
+    bottom: "false"
+    background: "#e1000000"
+    font0: "xos4 Terminus:size=10:antialias=false;2"
+

@@ -1,0 +1,31 @@
+# background and foreground MUST exist and MUST be hex color values
+# names cannot contain '-'
+terminal:
+    background: "#0a0f14"
+    foreground: "#c0c5ce"
+    bold: "#c0c5ce"
+    termbackground: "rgba(14,30,33,0.98)"
+    font: "Anonymice Nerd Font 10"
+    colors: ["#16212B", "#c33027", "#26a98b", "#edb54b", "#195465", "#4e5165", "#33859d", "#888ba5", "#98d1ce"]
+    # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
+
+border:
+    pixels: 1
+    all: 0
+    top: 0
+    bottom: 2
+    color: "#195465"
+
+
+gap:
+    inner: 12
+    outer: 0
+
+
+bar:
+    height: 30
+    width: "100%"
+    radius: 0
+    bottom: "false"
+    background: "#0a0f14"
+    font0: "xos4 Terminus:size=10:antialias=false;2"

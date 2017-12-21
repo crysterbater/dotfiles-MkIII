@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+pkill polybar
+polybar -r --config=/home/pringle/.config/polybar/polybar/who/config example 
+
+exit 0
+x

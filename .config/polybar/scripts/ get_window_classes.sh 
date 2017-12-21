@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Openbox: Get useful window params for <application> in openbox.xml / lubuntu.xml
+# result: # class="Software-properties-gtk" name="software-properties-gtk" type="dialog" title="Software & Updates"
+# requires node for the javascript code (I know, always use py for scripts)
+
+if [[ ! -z $1 ]] ; then
+    # use a manual window id
+    declare WNAME="--id $1"
+fi
+declare GET_WINDOW="$(obxprop $WNAME | grep --color=never -P '_OB_APP_')"
+declare PARSED="$(node -e 'process.stdout.write(process.argv[1].replace(/[\s\$
+'_OB_APP_TYPE\(UTF8_STRING\) = ("[^"]+")\s'\
+'_OB_APP_TITLE\(UTF8_STRING\) = ("[^"]+")[\s\S]*?'\
+'_OB_APP_CLASS\(UTF8_STRING\) = ("[^"]+")\s'\
+'_OB_APP_NAME\(UTF8_STRING\) = ("[^"]+")[\s\S]*$/, '\
+'"class=$3 name=$4 type=$1 title=$2"));' "$GET_WINDOW")"
+echo $PARSED
+# class="Software-properties-gtk" name="software-properties-gtk" type="dialog" title="Software & Updates"

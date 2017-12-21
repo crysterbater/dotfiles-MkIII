@@ -1,0 +1,38 @@
+! https://material.io/guidelines/style/color.html#color-color-palette
+
+! black, grey 200, cyan 400
+*.foreground:   #e8dfd6
+*.background:   #101314
+*.cursorColor:  #e8dfd6
+
+! black
+*.color0:       #111d2b
+*.color8:       #112124
+
+! red
+*.color1:       #c24567
+*.color9:       #ef47a2
+
+! green
+*.color2:       #79d5bc
+*.color10:      #a2d9c1
+
+! yellow
+*.color3:       #85cee4
+*.color11:      #89e1e3
+
+! blue
+*.color4:       #435279
+*.color12:      #61658d
+
+! magenta
+*.color5:       #ff5879
+*.color13:      #ff99bd
+
+! cyan
+*.color6:       #44a7b5
+*.color14:      #9ed9c3
+
+! white
+*.color7:       #f2f1b9
+*.color15:      #f6f6c9

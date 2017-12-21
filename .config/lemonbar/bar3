@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# lemonbar script
+
+# set padding
+p="  "
+
+# format an icon
+icon() {
+    echo "%{F#B938AB}${1}%{F-}"
+}
+
+# get workspaces
+workspaces() {
+    ws=$(wmctrl -d | grep '\*' | tail -c2)
+    case "$ws" in
+        1) echo "$(icon )";;
+        2) echo "$(icon )";;
+        3) echo "$(icon )";;
+        4) echo "$(icon )";;
+        5) echo "$(icon )";;
+    esac
+}
+
+
+# get network
+network() {
+    id=$(iwgetid -r)
+    case "$id" in
+        "")echo "$(icon ) offline";;
+        *)echo "$(icon ) ${id}";;
+    esac
+}
+
+# get volume
+volume() {
+    vl=$(amixer sget Master | grep -o -m 1 '[0-9]*%')
+    case "$vl" in
+        0%) echo "$(icon ) ${vl}";;
+        *) echo "$(icon ) ${vl}";;
+    esac
+}
+
+# get battery
+battery() {
+    bt=$(cat /sys/class/power_supply/BAT0/capacity)
+    if [ "$bt" -eq 100 ]; then
+        echo "$(icon ) ${bt}%"
+    elif [ "$bt" -gt 75 ]; then
+        echo "$(icon ) ${bt}%"
+    elif [ "$bt" -gt 25 ]; then
+        echo "$(icon ) ${bt}%"
+    else
+        echo "$(icon ) ${bt}%"
+    fi
+}
+
+# get clock
+clock() {
+    echo "$(icon ) $(date +'%a %R')"
+}
+
+
+# create bar
+while :; do
+    echo "%{l}${p}$(workspaces)%{c}$(clock)%{r}$(network)${p}$(volume)${p}$(battery)${p}"
+    sleep .2s
+done |\
+    lemonbar -g 'x28' \
+        -f -*-lemon-* \
+        -f '-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1' \
+        -B '#021B21' \
+        -F '#E8DFD6'
+
+# vim: ft=sh

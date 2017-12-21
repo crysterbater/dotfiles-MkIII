@@ -1,0 +1,119 @@
+<?xml encoding="UTF-8" version="1.0"?>
+<actions>
+<action>
+	<icon></icon>
+	<name>chmod +x</name>
+	<unique-id>1512709785119124-1</unique-id>
+	<command>chmod +x %F</command>
+	<description></description>
+	<patterns>*</patterns>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Root</name>
+	<unique-id>1512709825405898-2</unique-id>
+	<command>gksu thunar %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Copy Current Path</name>
+	<unique-id>1512721329966928-1</unique-id>
+	<command>echo -n %f | xclip -selection clipboard</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>kdeconnect</name>
+	<unique-id>1512752232931674-1</unique-id>
+	<command>kdeconnect-send %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Paste to Gist</name>
+	<unique-id>1513254803832118-2</unique-id>
+	<command>thunar-paste-to-gist.sh -f %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Media Info</name>
+	<unique-id>1513275763099945-2</unique-id>
+	<command>mediainfo -i %f | zenity --text-info</command>
+	<description></description>
+	<patterns>*</patterns>
+	<audio-files/>
+	<other-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Trim Video</name>
+	<unique-id>1513279856316115-12</unique-id>
+	<command>file=$(zenity --file-selection --title=&quot;Select Input File&quot; --file-filter=&apos;*.mp4&apos; --file-filter=&apos;*.mp4&apos; --file-filter=*.avi)</command>
+	<description></description>
+	<patterns>*</patterns>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Move to Dropbox</name>
+	<unique-id>1513278213178503-8</unique-id>
+	<command>cp -r %f /home/&lt;username&gt;/Dropbox</command>
+	<description></description>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1513279144345966-9</unique-id>
+	<command>xfce4-terminal -cd %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Create Archive Here</name>
+	<unique-id>1513279188754820-10</unique-id>
+	<command>squeeze -n %N</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>chopvideoaudio</name>
+	<unique-id>1513279929943053-14</unique-id>
+	<command>/chopvideoaudio.shi %f |</command>
+	<description></description>
+	<patterns>*</patterns>
+	<video-files/>
+</action>
+</actions>

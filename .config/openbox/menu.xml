@@ -1,0 +1,342 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/                 file:///usr/share/openbox/menu.xsd">
+  <menu id="root-menu" label="Openbox 3">
+    <separator label="M E N U"/>
+        <item label="Run">
+      <action name="Execute">
+        <command>rofi -m -2  -i -p -modi drun,run,colorscheme:rofi-colorscheme-switch,keys,ssh,combi -show run</command>
+      </action>
+    </item>
+        <item label="Quick Menu">
+      <action name="Execute">
+        <command>powermenu.sh</command>
+      </action>
+    </item>
+    <separator/>
+>
+    <menu id="accessories" label="Most Used">
+    <item label="Terminal">
+      <action name="Execute">
+        <command>xfce4-terminal</command>
+      </action>
+    </item>
+        <item label="Sublime 3">
+      <action name="Execute">
+        <command>subl3</command>
+      </action>
+    </item>
+    <item label="File Manager">
+      <action name="Execute">
+        <command>thunar</command>
+      </action>
+    </item>
+      <item label="Vlc">
+        <action name="Execute">
+          <command>vlc</command>
+        </action>
+      </item>
+      <item label="xterm">
+        <action name="Execute">
+          <command>xterm</command>
+        </action>
+      </item>
+      <item label="termite">
+        <action name="Execute">
+          <command>termite</command>
+        </action>
+      </item>
+      <item label="gColor2">
+        <action name="Execute">
+          <command>gcolor2</command>
+        </action>
+      </item>
+      <item label="firefox">
+        <action name="Execute">
+          <command>firefox</command>
+        </action>
+      </item>
+      <item label="vivaldi">
+        <action name="Execute">
+          <command>vivaldi-snapshot</command>
+        </action>
+      </item>
+    </menu>
+        <separator/
+    <menu id="development" label="Misc.">
+      <separator/>
+      <item label="Atom">
+  <action name="Execute">
+    <command>atom</command>
+  </action>
+</item>
+
+<item label="scrot viewer">
+  <action name="Execute">
+    <command>screenshots.py</command>
+  </action>
+</item>
+      <item label="Preferred Apps">
+        <action name="Execute">
+          <command>exo-preferred-applications</command>
+        </action>
+      </item>
+      <menu id="show_ob_keybindings." execute="/home/pringle/.config/openbox/pipemenus/show_ob_keybindings.py" label="Keybinds"/>
+
+      <item label="Archive Manager">
+        <action name="Execute">
+          <command>file-roller</command>
+        </action>
+      </item>
+      <item label="Catfish File Search">
+        <action name="Execute">
+          <command>catfish</command>
+        </action>
+      </item>
+      <item label="Task Manager (htop)">
+        <action name="Execute">
+          <command>termite -e 'htop task manager' -e htop</command>
+        </action>
+      </item>
+    </menu>
+    <menu id="graphics" label="Graphics">
+      <item label="Gimp">
+        <action name="Execute">
+          <command>gimp</command>
+        </action>
+      </item>
+      <item label="Gpick">
+        <action name="Execute">
+          <command>gpick</command>
+        </action>
+      </item>
+      <item label="Gpicview">
+        <action name="Execute">
+          <command>gpicview</command>
+        </action>
+      </item>
+      <item label="Inkscape">
+        <action name="Execute">
+          <command>inkscape</command>
+        </action>
+      </item>
+      <item label="Peek">
+        <action name="Execute">
+          <command>peek</command>
+        </action>
+      </item>
+
+
+
+
+    </menu>
+    <menu id="System" label="System">
+		      <item label="Power Management">
+        <action name="Execute">
+          <command>xfce4-power-manager-settings</command>
+        </action>
+      </item>
+
+                       <item label="GParted">
+        <action name="Execute">
+          <command>gksudo gparted</command>
+        </action>
+      </item>
+		      <item label="Screen Layout Editor">
+        <action name="Execute">
+          <command>arandr</command>
+        </action>
+      </item>
+		      <item label="Pulse Audio Preferences">
+        <action name="Execute">
+          <command>pavucontrol</command>
+        </action>
+      </item>
+		      <item label="Xfce4 Settings">
+        <action name="Execute">
+          <command>xfce4-settings-manager</command>
+        </action>
+      </item>
+      <item label="Dmenu">
+        <action name="Execute">
+          <command>dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'</command>
+        </action>
+      </item>
+            <item label="Notifications">
+        <action name="Execute">
+          <command>xfce4-notifyd-config</command>
+        </action>
+      </item>
+      <item label="Rofi Locate">
+        <action name="Execute">
+          <command>locate home media | rofi -threads 0 -lines 9 -font "Ubuntu 11" -dmenu -i -p </command>
+        </action>
+      </item>
+    </menu>
+    <separator/>
+
+      <menu id="
+     <menu id="pipemenus" label="Pipemenus">
+		       <menu id="screenshot" label="Screenshooter">
+        <item label="Screenshot in 5">
+          <action name="Execute">
+            <command>scrot -d 5 'ArchLabs-%Y-%m-%d-%S_$wx$h.png' -e  'mv $f ~/Dropbox/ ; gpicview ~/Dropbox/$f'</command>
+          </action>
+        </item>
+        <item label="Screenshot in 10">
+          <action name="Execute">
+            <command>scrot -d 10 'ArchLabs-%Y-%m-%d-%S_$wx$h.png' -e  'mv $f ~/Dropbox/ ; gpicview ~/Dropbox/$f'</command>
+          </action>
+        </item>
+        <item label="Screenshot With Selection">
+          <action name="Execute">
+            <execute>scrot -s 'ArchLabs-%Y-%m-%d-%S_$wx$h.png' -e 'mv $f ~/Dropbox/ ; gpicview ~/Dropbox/$f'</execute>
+          </action>
+        </item>
+      </menu>
+      <menu execute="/home/pringle/bin/al-mpd-pipemenu" id="mpd-pipemenu" label="MPD"/>
+    <menu execute="/usr/bin/al-places-pipemenu" id="pipe-placesmenu" label="Places"/>
+    <menu execute="/usr/bin/al-recent-files-pipemenu" id="pipe-recentfilesmenu" label="Recent Files"/>
+    <menu execute="al-kb-pipemenu --rcedit" id="Backup and Edit rc.xml" label="edit RC.xml"/>
+      <menu execute="al-kb-pipemenu --keybinds" id="Display keybinds" label="Display Keybinds in menu"/>
+
+    </menu>
+    <menu id="preferences" label="Preferences">
+      <menu id="obConfig" label="Openbox">
+        <item label="Edit menu.xml">
+          <action name="Execute">
+            <command>exo-open ~/.config/openbox/menu.xml</command>
+          </action>
+        </item>
+        <item label="Edit rc.xml">
+          <action name="Execute">
+            <command>exo-open ~/.config/openbox/rc.xml</command>
+          </action>
+        </item>
+        <item label="Edit autostart">
+          <action name="Execute">
+            <command>exo-open ~/.config/openbox/autostart</command>
+          </action>
+        </item>
+        <separator/>
+        <item label="GUI Menu Editor">
+          <action name="Execute">
+            <command>obmenu3</command>
+          </action>
+        </item>
+        <item label="GUI Config Tool">
+          <action name="Execute">
+            <command>obconf</command>
+          </action>
+        </item>
+        <item label="GUI Keybinds">
+          <action name="Execute">
+            <command>obkey</command>
+          </action>
+        </item>
+        <separator/>
+        <item label="Reconfigure">
+          <action name="Reconfigure"/>
+        </item>
+        <item label="Restart">
+          <action name="Restart"/>
+        </item>
+      </menu>
+
+      <menu execute="al-compositor" id="CompositingPipeMenu" label="Compositor"/>
+      <menu id="ob-randr" execute="/home/pringle/.config/openbox/pipemenus/ob-randr.py" label="RandR"/>
+      <menu execute="al-tint2-pipemenu" id="TintPipeMenu" label="Tint2"/>
+<menu execute="al-polybar-pipemenu" id="PolybarPipeMenu" label="Polybar"/>
+
+
+
+      <separator/>
+      <item label="Lxappearance">
+        <action name="Execute">
+          <command>lxappearance</command>
+        </action>
+      </item>
+      <item label="Set Wallpaper">
+        <action name="Execute">
+          <command>nitrogen</command>
+        </action>
+      </item>
+      <item label="Compton GUI">
+        <action name="Execute">
+          <command>paranoid.py</command>
+        </action>
+      </item>
+                  <item label="wpgtk">
+        <action name="Execute">
+          <command>wpg</command>
+        </action>
+      </item>
+            <item label="Oomox">
+        <action name="Execute">
+          <command>oomox-gui</command>
+        </action>
+      </item>
+      <item label="Theme Switcher">
+        <action name="Execute">
+          <command>rofi -modi colorscheme:rofi-colorscheme-switch  -show colorscheme:rofi-colorscheme-switch</command>
+        </action>
+      </item>
+           <item label="Save Theme Setup">
+        <action name="Execute">
+          <command>bl-obthemes</command>
+        </action>
+      </item>
+          <separator/>
+                <item label="Rofi Appearance">
+        <action name="Execute">
+          <command>rofi-theme-selector rofi -modi drun,run -show drun -width 700 -location 0 -font "Noto Sans 13"</command>
+        </action>
+      </item>
+      <item label="Termite Appearance">
+        <action name="Execute">
+          <command>geany ~/.config/termite/config</command>
+        </action>
+      </item>
+      <item label="Edit .Xresources">
+  <action name="Execute">
+    <execute>atom ~/.Xresources</execute>
+  </action>
+</item>
+              <separator/>
+      <item label="LightDM Appearance">
+        <action name="Execute">
+          <command>gksudo lightdm-gtk-greeter-settings</command>
+        </action>
+      </item>
+      <separator/>
+            <separator/>
+      <item label="Login Settings">
+        <action name="Execute">
+          <command>gksudo geany /etc/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm.conf</command>
+        </action>
+      </item>
+      <item label="Reconfigure">
+  <action name="Execute">
+    <command>killall -USR2 openbox</command>
+  </action>
+</item>
+    </menu>
+<openbox_pipe_menu>
+  <menu id='A-F2' label='A-F2'>
+    <item label='Run program'>
+      <action name='Execute'>
+        <execute>rofi -m -2  -i -p -modi drun,run,colorscheme:rofi-colorscheme-switch,keys,ssh,combi -show run</execute>
+      </action>
+    </item>
+  </menu>
+</openbox_pipe_menu>
+
+
+    <separator/>
+    <item label="Logout">
+      <action name="Execute">
+        <command>oblogout</command>
+      </action>
+    </item>
+  </menu>
+</openbox_menu>

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+#Usage : redshift.sh [toggle]
+
+START='redshift'
+STOP="killall redshift"
+if [[ "$@" = *toggle* ]]; then
+  if pgrep redshift > /dev/null
+  then
+    $STOP
+  else
+    $START &
+  fi
+fi
+
+
+# Specifying the icon(s) in the script
+# This allows us to change its appearance conditionally
+off=""
+on=""
+pgrep -x redshift &> /dev/null
+if [[ $? -eq 0 ]]; then
+    temp=$(redshift -p 2>/dev/null | grep temp | cut -d' ' -f3)
+    temp=${temp//K/}
+fi
+
+# OPTIONAL: Append ' ${temp}K' after $icon
+if [[ -z $temp ]]; then
+    echo "%{F#FF4172}   $off  "       # Greyed out (not running)
+elif [[ $temp -ge 5000 ]]; then
+    echo "%{F#FF4172}   $on  "       # Blue
+elif [[ $temp -ge 4000 ]]; then
+    echo "%{F#00A388}   $on  "       # Yellow
+else
+    echo "%{F#00A388}   $on  "       # Orange
+fi

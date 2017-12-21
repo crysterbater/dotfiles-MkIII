@@ -1,0 +1,55 @@
+mconnect -d &
+
+
+# panel
+sleep 1; start-polybar &
+
+
+# launch compton
+al-compositor --start &
+
+# laptops without a numpad may want to comment this out
+numlockx &
+
+#** GNOME PolicyKit authentication **
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# thunar and bookmarks
+#(sleep 1; thunar --daemon) &
+(sleep 1; xdg-user-dirs-gtk-update) &
+
+# wallpaper
+(sleep 1; nitrogen --restore) &
+
+# xfce settings
+xfce4-power-manager &
+
+# kde connect
+indicator-kdeconnect &
+
+## Clipboard Manager
+#(sleep 3; clipit) &
+
+# polybar
+(sleep 1; /home/pringle/.config/polybar/polybar-chooser &
+#(sleep 1; polybar --config=$HOME/.config/polybar/pepperg-config top) &
+
+# systray
+(sleep 1; volumeicon) &
+(sleep 2; nm-applet) &
+
+dunst &
+#(sleep 2; temps) &
+#redshift-gtk &
+
+# skippy
+(sleep 2; skippy-xd --config $HOME/.config/skippy-xd/skippy-xd.rc --start-daemon) &
+skippy-xd --start-daemon &
+
+# rofi
+(sleep 2; clipster --daemon) &
+
+(sleep 2; greenclip daemon) &
+(sleep 2; skippy-xd --config $HOME/.config/skippy-xd/skippy-xd.rc --start-daemon) &
+
+opensnap --daemon -c /etc/opensnap &

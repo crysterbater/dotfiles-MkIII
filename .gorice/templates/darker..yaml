@@ -1,0 +1,31 @@
+terminal:
+    background: "#241434"
+    transparent: "rgba(24,27,33,0.80)"
+    foreground: "#ffffff"
+    trim: "#181B21"
+    colors: ["#FF417", "#FFA172", "#99A7FF", "#99A4FF, 
+"#A89ED1", "#76B5E5", "#87A1C7", "#76E5BF"]
+ 
+ 
+border:
+    active-color: "#23EFDC"
+    inactive-color: "#000000"
+    pixels: 2
+ 
+ 
+gaps:
+    inner: 10
+    outer: 0
+ 
+ 
+bar:
+    bottom: "false"
+    trim: "#23EFDC"
+    height: 20
+ 
+ 
+wallpaper: "/home/pringle/Pictures/favorites/grl/20170928_224852_500pxSaver-picsay.jpg"
+transparent: "rgba(35,30,53,0.80)"
+foreground: "#23EFDC"
+trim: "#23EFDC"
+colors: ["#AFDCE4", "#27FCFD", "#3AF278", "#8039A0", "#F203f0", "#FF5B6C", "#FFFE5D", "#000000"]

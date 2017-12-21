@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+online=$(ip addr | grep "state UP" | cut -d ":" -f2)
+
+connected=""
+offline=""
+if [[ "$online" ]]; then
+    echo %{F#131313}${connected}
+  else
+    echo %{F#131313}${offline}; sleep 1; echo %{F#E64141}${offline}
+fi

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Description: A simple Todo List using notify-send
+
+image='/home/mohabaks/Pictures/notify/todo/todo.jpg'
+
+. $HOME/.local/bin/color-parser
+
+notify-send -i $image "TO DO
+stuff
+things
+etc
+"

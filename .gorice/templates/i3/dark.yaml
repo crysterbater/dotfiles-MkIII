@@ -1,0 +1,31 @@
+# background and foreground MUST exist and MUST be hex color values
+# names cannot contain '-'
+terminal:
+    background: "#070E14"
+    foreground: "#F6F6F6"
+    bold: "#A9A9A9"
+    termbackground: "rgba(24,28,36,0.95)"
+    font: "Anonymice Nerd Font 10"
+    colors: ["#343440", "#A61C52", "#ED475B", "#E29A91", "#DCCF9D", "#5E81AC", "#3EACD2", "#85AEE3", "#83A4A8"]
+    # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
+
+border:
+    pixels: 1
+    all: 0
+    top: 0
+    bottom: 0
+    color: "#04080b"
+
+
+gap:
+    inner: 15
+    outer: 0
+
+
+bar:
+    height: 30
+    width: "100%"
+    radius: 0
+    bottom: "false"
+    background: "#070E14"
+    font0: "Mirai-Medium:size=8:antialias=false;2"

@@ -1,0 +1,32 @@
+*background: #0C0C11
+*foreground: #EEEEEE
+*cursorColor: #9EAEFF
+
+# red
+color1  = #00C2AF
+color9  = #699EF5
+
+# green
+color2  = #699EF5
+color10 = #00c28e
+
+# yellow
+color3  = #00AD8C
+color11 = #4bbab3
+
+# blue
+color4  = #5290E3
+color12 = #00969b
+
+# magenta
+color5  = #7986CB
+color13 = #2b7e9b
+
+# cyan
+color6  = #9FC0F5
+color14 = #0db2a7
+
+
+! white, brightwhite
+*color7: #EEEEEE
+*color15: #FFFFFF

@@ -1,0 +1,31 @@
+! https://material.io/guidelines/style/color.html#color-color-palette
+
+
+! special
+*.foreground:   #ffffff
+*.background:   #1a1a1a
+*.cursorColor:  #ffffff
+
+# red
+color1  = #00C2AF
+color9  = #6c6968
+
+# green
+color2  = #008f5b
+color10 = #00c28e
+
+# yellow
+color3  = #00AD8C
+color11 = #4bbab3
+
+# blue
+color4  = #00C28E
+color12 = #00969b
+
+# magenta
+color5  = #7986CB
+color13 = #2b7e9b
+
+# cyan
+color6  = #9FC0F5
+color14 = #0db2a7

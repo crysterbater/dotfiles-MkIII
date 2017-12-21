@@ -1,0 +1,61 @@
+[admiral]
+items = ["left", "work", "title", "spaces", "spaces",
+          "center", "clock",
+          "right", "music", "volume"]
+
+[spacer]
+path = "echo '   '"
+static = true
+
+[weather]
+path = "wtr"
+reload = 60
+
+[music]
+path = "sp listen"
+
+[notify]
+path = ".bar/notify.py"
+
+[title]
+path = ".bar/title.sh"
+
+[space_small]
+path = "echo '   '"
+
+[spaces]
+path = "echo '                                                                                                      '"
+static = true
+
+[clock]
+path = ".bar/clock.sh"
+reload = 60
+
+[volume]
+path = "/home/dead/.bar/volume.sh"
+reload = 1
+
+[battery]
+path = "/home/dead/.bar/battery.sh"
+reload = 10
+
+[work]
+path = "/home/dead/.bar/home/dead/bin/Media/wrk-help"
+
+[work2]
+path = "/home/dead/.bar/py_workspace.py"
+
+[modes]
+path = "python3 /home/dead/.bar/modes.py"
+
+[left]
+path = "echo '%{l}'"
+static = true
+
+[center]
+path = "echo '%{c}'"
+static = true
+
+[right]
+path = "echo '%{r}'"
+static = true

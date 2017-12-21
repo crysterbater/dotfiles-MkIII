@@ -1,0 +1,35 @@
+# background and foreground MUST exist and MUST be hex color values
+# names cannot contain '-'
+terminal:
+    background: "#070E14"
+    foreground: "#EFEFEC"
+    bold: "#EFEFEC"
+    termbackground: "rgba(07,14,20,0.95)"
+    font: "Office Code Pro D Regular 10"
+    colors: ["#120D19", "#14161A", "#20283A", "2B303B ", "#8FA1B3", "#89ADDC", "#46589A", "#8CD0D3", "#EEEEEE"]
+    # colors  0=black     1=red     2=green   3=yellow    4=blue    5=purple    6=cyan     7=grey     8=white
+
+border:
+    pixels: 2
+    all: 0
+    top: 0
+    bottom: 0
+    color: "#444444"
+
+
+gap:
+    inner: 10
+    outer: 0
+
+
+bar:
+    height: 30
+    width: "100%"
+    radius: 0
+    bottom: "false"
+    background: "#070E14"
+    font0: "NeoGram:size=9:weight=light;antialias=false;2"
+
+
+wallpaper:
+    saved: "/usr/share/backgrounds/surfin.jpg"

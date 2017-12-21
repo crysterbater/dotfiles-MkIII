@@ -1,0 +1,28 @@
+#!/bin/bash
+# Description: Display cover for the current playing song using notify-send
+
+# source colors
+. $HOME/.local/bin/color-parser
+
+# create notify title
+title="<span foreground='$BLUE'>Now Playing</span>"
+
+# get current album
+album=$(ncmpcpp --current-song={%b} 2> /dev/null)
+
+# If album not null display cover
+if [[ -n "$album" ]];then
+        if [[ "$album" = "Quran" ]];then
+                image="/home/mohabaks/Pictures/notify/quran/cover.png"
+                notify-send -i $image "$title" "$(mpc current)"
+        elif [[ "$album" = "Quran — Shatri" ]] || [[ "$album" = "Quran" ]];then
+                image="/home/mohabaks/Pictures/notify/quran/cover.png"
+                notify-send -i $image "$title" "$(mpc current)"
+        else
+                image="/home/mohabaks/Pictures/notify/other/cover.png"
+                notify-send -i $image "$title" "$(mpc current)"
+        fi
+else
+        image="/home/mohabaks/Pictures/notify/other/cover.png"
+        notify-send -i $image "$title" "$(mpc current)"
+fi
