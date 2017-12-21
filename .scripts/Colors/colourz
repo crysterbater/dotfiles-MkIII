@@ -1,0 +1,77 @@
+#!/bin/sh
+
+set -e
+
+ab='\033[48;5;%sm'
+af='\033[38;5;%sm'
+abf='\033[48;5;%s;38;5;%sm'
+afb='\033[38;5;%s;48;5;%sm'
+reset='\033[0m'
+
+# shellcheck disable=SC2059
+p() { printf "$@"; }
+
+# xterm color cubes
+face='0 1 2 3 4 5'
+gray='0 1 2 3'
+
+cube() {
+	for g in $face; do
+		printf ' '
+		for r in $face; do
+			for b in $face; do
+				p "$ab $reset" $((16 + (r*36) + (g*6) + b))
+			done
+		done
+		printf ' '
+		for i in $gray; do
+			p "$ab $reset" $((232 + (g*4) + i))
+		done
+		printf '\n'
+	done
+}
+
+# random tes
+rand() {
+	i=0
+	awk -v min=0 -v max=15 -v n="$((14*5))" \
+		'BEGIN{srand();while(i++<n)print int(min+rand()*(max-min+1))}' |
+	while IFS= read -r n; do
+		p " ${af}te$reset" "$n"
+		i=$((i+1))
+		if [ $((i%14)) = 0 ]; then
+			printf '\n'
+		fi
+	done
+}
+
+# normal colours
+xrdb="$(xrdb -query | grep 'color1\?[0-9]\s*:')"
+cn() { printf '%s' "$xrdb" | sed -n -e "s/^.*color${1}:\s*#\(.*\)$/\1/p"; }
+
+norm() {
+	for off in 0 4; do
+		printf '\n'
+		for i in 0 1 2 3; do
+			n="$(cn $((i+off)))"
+			if [ "$i" != 0 ]; then printf '  '; fi
+			p " ${afb} %s${abf}%s $reset" \
+				"$((i+off+8))" "$((i+off))" "${n%???}" \
+				"$((i+off+8))" "$((i+off))" "${n#???}"
+		done
+		printf '\n'
+		for i in 0 1 2 3; do
+			n="$(cn "$((i+off+8))")"
+			if [ "$i" != 0 ]; then printf '  '; fi
+			p " ${af} %s${af}%s${reset} " \
+				"$((i+off))" "${n%???}" "$((i+off+8))" "${n#???}"
+		done
+		printf '\n'
+	done
+}
+
+printf '\n'
+cube
+printf '\n'
+rand
+norm

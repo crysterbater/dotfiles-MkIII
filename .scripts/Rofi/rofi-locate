@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xdg-open "$(locate home media | rofi -threads 0 -lines 9 -font "Ubuntu 11" -dmenu -i -p "Search:")"

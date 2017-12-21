@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+
+# Polybar launcher script written by Nathaniel Maia for use in ArchLabs. Dec, 2017
+
+# Can also be used to reload openbox session with [--reload] or [-r]
+# Specify a different sessionfile with [--session] or [-z] and passing a valid path
+
+# You can call this script regardless of WM and it will handle launching the right bars
+# simply add 'sleep 1; start-polybar &' to your autostart
+
+# location of polybar configs
+CONFPATH="$HOME/.config/polybar"
+# Enter a fallback value here, in case something happens to your session this will be used instead
+FALLBACK="--config=$CONFPATH/config bar"
+
+
+####################################################################################
+
+# loop over WMS until we get a match
+WMs=(bspwm i3 openbox xfce awesome)
+for i in ${WMs[@]}; do
+    if [[ "$(wmctrl -m | grep -i name | awk '{print tolower($2)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(xprop -root -notype | grep "WM_NAME =" | tr -d '"' | awk '{print tolower($3)}')" == "$i" ]]; then
+        WM=$i && break
+    elif [[ "$(awk '{print tolower($0)}' <<< $XDG_CURRENT_DESKTOP)" == "$i" ]]; then
+        WM=$i && break
+    fi
+done
+SESSIONFILE="$CONFPATH/sessions/$WM-sessionfile"
+HELP="\nUSAGE:\n\tstart-polybar [OPTIONS].. [SESSIONFILE]
+\nOPTIONS:
+\t--help, -h\tPrint this usage message and exit
+\t--reload, -r\tIf WM is openbox reload openbox, tint2/polybar, dunst, & compositor
+\t--session, -z\tIf passed a sessionfile path, use that instead of default '$WM-sessionfile'
+\nWith no options the script will stop all running bars & start the session
+\n\nSessions are handled on a per WM basis, for each WM, a WM-sessionfile will be created
+The script will launch the right session for the WM unslees a different sessionfile is specified
+Bars for session can be chosen by running 'al-polyzen' or manually configure
+\n\t'$SESSIONFILE'"
+
+# Check if the sessionfile exists.. bail out if tint2 is running
+# fallback if polybar is installed then set default session & bar
+session() {
+    if [ "$(pidof tint2)" ]; then exit 0; fi
+    if [ -f "$1" ]; then
+        while [ "$(pidof polybar)" ]; do
+            pkill polybar && sleep 0.5
+        done
+        while read line; do
+            polybar -r $line &
+            sleep 0.5
+        done < "$1"
+    elif [ -d "$CONFPATH" ] && pacman -Q polybar &>/dev/null; then
+        mkdir -p "$CONFPATH/sessions" && echo "--config=$CONFPATH/config bar" > "$SESSIONFILE"
+        while [ "$(pidof polybar)" ]; do
+            pkill polybar && sleep 0.5
+        done
+        while read line; do
+            polybar -r $line &
+        done < "$1"
+    else
+        echo -e "No config directory found. Make sure polybar & archlabs-user-skel are installed
+        \nThen run 'al-polyzen' or 'al-panel-chooser' to setup a session"
+    fi
+}
+
+# help, session and reload
+case $1 in
+    *help|-h)
+        echo -e "$HELP" && exit 0
+        ;;
+    *reload|-r)
+        if [[ "$WM" == "openbox" ]]; then
+            openbox --restart && pkill dunst
+            al-compositor --restart && al-tint2restart
+        else
+            echo "WM is not Openbox.. Skipping reload"
+        fi
+        ;;
+    -z|*session)
+        if [[ $2 ]] && [ -f "$2" ]; then
+            SESSIONFILE=$2
+        else
+            echo -e "\nInvalid sessionfile..
+            \nTry again, making sure to pass a valid path to an existing sessionfile
+            \n\teg. start-polybar -z \$HOME/.config/polybar/my-sessionfile"
+        fi
+esac
+
+# if we made it this far start the session
+session "$SESSIONFILE"

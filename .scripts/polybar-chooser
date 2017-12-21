@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+#
+# Polybar launcher script written by Nathaniel Maia for use in ArchLabs
+#
+
+# Will launch bars depending on WM and can reload openbox session
+# Can also be used to reload openbox session with [--reload] or [-r]
+
+# Enter your bar names here (seperated by spaces) eg BARS=(bar bar1 my-bar)
+# This will be combined with CUR_WM eg. bar2, bar3, i3-bar
+BARS=(bar)
+
+
+CONF=$HOME/.config/polybar
+CUR_WM=$(wmctrl -m | grep Name | cut -d " " -f2)
+
+
+# used to reload openbox session
+if [[ $1 == "--reload" ]] || [[ $1 == "-r" ]]; then
+  if [[ $CUR_WM == "Openbox" ]]; then
+    openbox --restart
+    al-compositor --restart
+    al-tint2restart
+  else
+    echo "[WARN]:  Option [--reload] is meant for Openbox..."
+  fi
+fi
+
+# drop out if tint2 is running
+if pgrep -x "tint2" >/dev/null; then
+  echo "Tint is running...  Exiting"
+  exit 1
+fi
+
+# Terminate already running Bars
+while pgrep -x polybar >/dev/null; do
+  killall -q polybar
+  sleep 0.5
+done
+
+# Launch each bar in BARS=() above
+echo "Using $CUR_WM...  Launching Bars"
+for bar in "${BARS[@]}"; do
+  polybar -r --config=$CONF/config ${CUR_WM}-$bar &
+done
+echo "Bars launched..."

@@ -1,0 +1,656 @@
+#!/usr/bin/env bash
+
+
+#
+##
+####  Dotfile Backup and Restore script based around Git
+####  Written by Nathaniel Maia <natemaia10@gmail.com>
+##
+#
+
+# config location & name
+config="$HOME/.dotiirc"
+name="dotii"
+
+#
+##
+###  Messages & Colours
+##
+#
+
+# colours
+b='\E[1;34m'
+red='\E[1;31m'
+g='\E[1;32m'
+norm='\E[0m'
+
+# set box
+R=1    # Row
+C=2    # Column
+W=86   # width
+H=29   # height
+col=1  # Color (red)
+
+# messages
+warn="${red}[WARN]${norm}:"
+info="${b}[INFO]${norm}:"
+skip="${b}Skipping${norm}"
+pass="${g}Passed${norm}"
+exiting="${red}Exiting${norm}"
+continuing="${b}Continuing${norm}"
+install="${b}Installing${norm}"
+usage="\n\nUSAGE:\t$name [OPTIONS]
+\n\n\nOPTIONS:
+\n\n\t-h\tPrint this usage message
+\n\t-b\tBackup files to destination directory
+\n\t-r\tRestore files to their original location
+\n\t-c\tRemove files in destination directory
+\n\t-s\tCommit backup to git repo set in config
+\n\t-n\tGenerate new default config
+\n\t-v\tEnable verbose output of info and warnings
+\n\n\nBACKUP OPTIONS:
+\n\n\t-c
+\n\t-v
+\n\t-s
+\n\n\nRESTORE OPTIONS:
+\n\n\t-v
+\n\n\nEXAMPLES:
+\n\n\t$name -bcsv\tBackup configs enable clean, sync, & verbose mode
+\n\n\t$name -rv\tRestore configs with verbose output
+\n\n\nINFO:
+\n\tConfiguration is done in: '$config'
+\n\tA default config will be created if one is not found\n"
+
+# 'GUI' menu
+menu="\n\n\t1 ${red})${norm} Backup\tBackup paths in config to destination_directory
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t2 ${red})${norm} Restore\tRestore backed up configs from destination_directory
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t3 ${red})${norm} Git Sync\tCommit and push changes to repo \t ${red}**${norm}Solo/Backup
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t4 ${red})${norm} Clean\tClean each dir in destination_directory\t ${red}**${norm}Backup only
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t5 ${red})${norm} New\t\tGenerate new config '~/.dotiirc'\t ${red}**${norm}Solo only
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t9 ${red})${norm} Verbose\tOutput all errors and information\t ${red}**${norm}All
+\n\n\t${b}----------------------------------------------------------------------${norm}
+\n\n\t0 ${red})${norm} Exit\tClear the screen and exit dotii"
+
+
+#
+##
+###  Functions
+##
+#
+
+
+# cleans $home_dest and $root_dest
+# ask to clean based on whether dir exists
+
+clean_directories() {
+
+    backup_paths=($destination_directory/$main_directory
+                  $destination_directory/$extra_directory)
+
+    for x in ${backup_paths[@]}; do
+        if [ -d "$x" ]; then
+            unset clean
+            printf "\n\n Completely Clean ${red}$x${norm}? [y/N]: "; read -r clean
+
+            case $clean in
+                y*|Y*)
+                    rm -rf$v $x
+                    echo -e "\n\n$info ${red}$x${norm} Cleaned"
+                    ;;
+                *)
+                    echo -e "\n\n$info Not Cleaning ${red}$x${norm}"
+            esac
+
+        elif [[ "$v" = "v" ]]; then
+            echo -e "$warn ${red}$x${norm} Not Found"
+        fi
+    done
+
+    sleep 1; clear
+
+}
+
+
+# performs basic checks for destination directory
+# called by any function that requires it in order work
+# if $repo_address is set: make sure git is installed
+# if destination does not exist, clone $repo_address
+# if $repo_address is not set: skip git check and make $dest directory
+
+prep_destination_directory() {
+
+    clear
+    if [ ${#destination_directory} -gt 0 ]; then
+        if [ ${#repo_address} -gt 0 ]; then         # repo is set
+            if ! hash git > /dev/null 2>&1; then    # check if git is installed
+
+                if [[ "$v" = "v" ]]; then
+                    echo -e "$info Git not Installed... $install"
+                fi
+
+                sudo pacman -S git --noconfirm --needed
+            fi
+
+            # clone repo
+            if ! [ -d "$destination_directory" ]; then
+                git clone "$repo_address" "$destination_directory"
+            fi
+
+        elif ! [ -d "$destination_directory" ]; then
+            mkdir -p$v "$destination_directory"
+
+        elif [[ "$v" = "v" ]]; then
+            echo -e "$info Check $destination_directory exists... $pass"
+        fi
+
+    else
+        echo -e "\n\n$warn destination_directory must be set in config before continuing $exiting"
+        exit 1
+    fi
+
+}
+
+
+# make sure $destination_directory and $repo_address are set
+# if check passes: read input and make commit
+# if no input is given, but enter is pressed: no commit is made
+
+commit_configs() {
+
+    if [ ${#repo_address} -gt 0 ]; then  # repo is set
+
+        prep_destination_directory
+
+        clear
+        printf "${b}#\n##\n####${norm}  Enter Your comment describing this commit\n${b}##\n#${norm}\n\n\n\n> "
+        read -r comment
+
+        if [ ${#comment} -gt 0 ]; then
+            cd "$destination_directory"/
+            git add .
+            git commit -m "$comment"
+            echo -e "\n\n"
+            git push origin "$branch"
+
+        elif [[ "$v" = "v" ]]; then
+            echo -e "$info Not syncing... $exiting"
+        fi
+
+    # exit error if repo_address not set
+    else
+        if [[ "$v" = "v" ]];then
+            echo -e "$warn Cannot use sync without repo_address set in config.. $exiting"
+        fi
+
+        exit 1
+    fi
+
+}
+
+
+# check which of $main_directory and $extra_directory exist
+# ask to restore each back to original location
+
+restore_configs() {
+
+    backup_paths=($destination_directory/$main_directory
+                  $destination_directory/$extra_directory)
+
+    prep_destination_directory
+
+    for x in ${backup_paths[*]}; do
+        if [ -e "$x" ]; then
+            unset restore
+            printf "Restore everything from ${red}$x${norm}  [y/N]: "
+            read -r restore
+            case $restore in
+                y|Y)
+                    if [[ "$x" = "$destination_directory/$main_directory" ]]; then
+                        echo -e "\n\n$info Restoring Files From $x\n\n"
+                        cp -rf$v "$destination_directory/$main_directory"/. "$HOME"/
+
+                    elif [[ "$x" = "$destination_directory/$extra_directory" ]]; then
+                        echo -e "\n\n$info Restoring Files From $x\n\n"
+                        sudo cp -rf$v "$destination_directory/$extra_directory"/. /
+
+                    else
+                        echo -e "$warn I don't know where to restore $x"
+                    fi
+                    ;;
+                *)
+                    echo -e "\n\n$info Not restoring from $x\n\n"
+            esac
+        fi
+    done
+
+    sleep 1; clear
+    echo -e "$info ${g}Restore Complete!!${norm}"
+    exit 0
+
+}
+
+
+# used to make the loading bar
+# will repeat the block char the amount given
+repeat_block() {
+
+    block="█"
+    count="$1"
+    countstring="$(printf "%${count}s")"
+    echo "${countstring// /█}"
+
+}
+
+
+# check all paths from arrays, if path exists, add it to goodPaths array
+# loop through good paths checking the name of each. copy each to appropriate dir
+# current path number over total number of paths, incrementing the counter
+
+backup_configs() {
+
+    prep_destination_directory
+
+    if [[ "$clean" = "True" ]]; then
+        clean_directories
+    elif [[ "$v" = "v" ]]; then
+        echo -e "$info Not Cleaning"
+    fi
+
+    num=1
+    config_total_paths=${#combined_paths[@]}
+    for x in ${combined_paths[*]}; do
+        if [ -e "$x" ]; then
+            existing_paths+=("$x")
+        elif [[ "$v" = "v" ]]; then
+            echo -e "$warn $x Not Found...\t ${red}${num}${norm}/${g}$config_total_paths${norm}"
+        fi
+        num=$(($num+1))
+    done
+    total_paths=${#existing_paths[@]}
+
+    num=1
+    if [ $total_paths -gt 0 ]; then
+        for x in ${existing_paths[*]}; do
+
+            if [[ "$v" == "v" ]]; then
+                echo -e "\n\n$info Copying $x...   ${g}$num${norm}/${g}$total_paths${norm}\n\n\n"
+
+            else
+                echo -e "\n\n$info Copying Path...\t${g}$num${norm}/${g}$total_paths${norm}\n\n\n"
+                tput cup 6 0; echo -n -e $b; repeat_block $num
+                tput cup 6 $num; echo -n -e $norm; repeat_block $(($total_paths - $num))
+                echo -e "\n\n\n\n"
+            fi
+
+            case $x in
+                */.config/*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.config
+                    cp -rf$v $x "$destination_directory/$main_directory"/.config/
+                    ;;
+                *oh-my-zsh/themes*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.oh-my-zsh/themes
+                    cp -rf$v $x "$destination_directory/$main_directory"/.oh-my-zsh/themes/
+                    ;;
+                *oh-my-zsh*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.oh-my-zsh
+                    cp -rf$v $x "$destination_directory/$main_directory"/.oh-my-zsh/
+                    ;;
+                *atom*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.atom
+                    cp -rf$v $x "$destination_directory/$main_directory"/.atom/
+                    ;;
+                *.mpd*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.mpd
+                    cp -rf$v $x "$destination_directory/$main_directory"/.mpd/
+                    ;;
+                *.ncmpcpp*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.ncmpcpp
+                    cp -rf$v $x "$destination_directory/$main_directory"/.ncmpcpp/
+                    ;;
+                */.themes*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.themes
+                    cp -rf$v $x "$destination_directory/$main_directory"/.themes/
+                    ;;
+                */.gimp-2.8/*)
+                    mkdir -p$v "$destination_directory/$main_directory"/.gimp-2.8
+                    cp -rf$v $x "$destination_directory/$main_directory"/.gimp-2.8/
+                    ;;
+                */home/*)
+                    mkdir -p$v "$destination_directory/$main_directory"
+                    cp -rf$v $x "$destination_directory/$main_directory"/
+                    ;;
+                */etc/*)
+                    mkdir -p$v "$destination_directory/$extra_directory"/etc
+                    cp -rf$v $x "$destination_directory/$extra_directory"/etc/
+                    ;;
+                */usr/share/*)
+                    mkdir -p$v "$destination_directory/$extra_directory"/usr/share
+                    cp -rf$v $x "$destination_directory/$extra_directory"/usr/share/
+                    ;;
+                */usr/bin/*)
+                    mkdir -p$v "$destination_directory/$extra_directory"/usr/bin
+                    cp -rf$v $x "$destination_directory/$extra_directory"/usr/bin/
+                    ;;
+                *)
+                    mkdir -p$v "$destination_directory/$extra_directory"
+                    cp -rf$v $x "$destination_directory/$extra_directory"/
+            esac
+            sleep 0.1
+            num=$(($num+1))
+            if ! [[ "$v" = "v" ]]; then
+                clear
+            fi
+        done
+
+        echo -e "\n\n$info ${g}Backup Complete${norm}\n\n"
+
+    elif [[ "$v" = "v" ]]; then
+        echo "$warn No Valid File Paths.. $exiting"
+    fi
+
+}
+
+
+# create default config, print first use message, and exit
+# should only be called if no config exists or if passed options -n,--new
+# when done this function will always exit and should only be used as above
+
+make_config() {
+
+    echo -e '#       _       _   _ _
+#    __| | ___ | |_(_|_)_ __ ___
+#   / _` |/ _ \| __| | | ''__/  __|
+#  | (_| | (_) | |_| | | | | (__
+#   \\__,_|\\___/ \\__|_|_|_|  \\___|
+##################################\n\n
+# Generated by dotii with common files and folders, as well as some of my own
+# Paths that do not exist will be skipped, only warning when using the [-v] verbose option\n
+# Sensitive information & files should never be stored online or using git
+# eg. passwords, personal info, ~/.gnupg/, ~/.ssh, ~/.git-credentials, ~/.git\n\n\n
+# Repo http address for cloning and committing to with the [-s,--sync] option
+# If repo_address is not set the backup will be local and sync will be disabled
+# Branch should be set to master unless you use separate branches\n
+repo_address=""
+branch="master"\n\n\n
+# Directory in file system where files will be stored.
+# If using git, this is also where repo_address will be placed when cloning
+# Note: folder name of destination_directory and repo_address should match
+# eg.
+# repo_address="https://github.com/natemaia/my-dots"
+#                                           ^^^^^^^
+# destination_directory="/media/smoke/Storage/Git-Projects/my-dots"
+#                                                          ^^^^^^^\n
+destination_directory=""\n\n\n
+# Name for main backup sub-directory within destination_directory
+# This is where home_paths() and config_paths() will be copied to and from\n
+main_directory="home-configs"\n\n\n
+# Array of main file paths in $HOME to be copied
+# Paths with spaces should be single quoted
+# eg. $HOME/'\'My Pictures\''/picture.jpg\n
+home_paths=($HOME/bin        $HOME/.zshrc
+            $HOME/.dotiirc   $HOME/.vimrc
+            $HOME/.bashrc    $HOME/.gitconfig
+            $HOME/.spacemacs $HOME/startpage
+            $HOME/scripts    $HOME/.Xresources
+            $HOME/.themes    $HOME/.Xresources.template
+            $HOME/.gorice    $HOME/.mpd/mpd.conf
+            $HOME/.profile   $HOME/.ncmpcpp/config
+            $HOME/.zprofile  $HOME/.atom/config.cson
+            $HOME/.xprofile  $HOME/.oh-my-zsh/custom
+            $HOME/.gtkrc-2.0 $HOME/.xinitrc
+            $HOME/.gimp-2.8  $HOME/.oh-my-zsh/themes/powerlevel9k.zsh-theme
+           )\n\n\n
+# Secondary file path array
+# Done to limit what is backed up from ~/.config
+# If doing a local backup or just want all of ~/.config backed up
+# Add $HOME/.config to home_paths() above, your choice\n
+CONFIG="$HOME/.config"\n
+config_paths=($CONFIG/i3       $CONFIG/bspwm
+              $CONFIG/sxhkd    $CONFIG/cava
+              $CONFIG/xfce4    $CONFIG/termite
+              $CONFIG/nitrogen $CONFIG/awesome
+              $CONFIG/geany    $CONFIG/compton.conf
+              $CONFIG/dunst    $CONFIG/gsimplecal
+              $CONFIG/Thunar   $CONFIG/mimeapps.list
+              $CONFIG/ranger   $CONFIG/fontconfig
+              $CONFIG/gtk-3.0  $CONFIG/ob-autostart
+              $CONFIG/neofetch $CONFIG/compton.conf
+              $CONFIG/jgmenu   $CONFIG/.composite_enabled
+              $CONFIG/termite  $CONFIG/compton
+              $CONFIG/polybar  $CONFIG/surfraw
+              $CONFIG/openbox  $CONFIG/obmenu-generator
+             )\n\n\n
+# Name for additional backup sub-directory within destination_directory
+# This is where extra_paths() will be copied to and from.
+# It is setup to keep configs and changes made in /etc/
+# This is only created if extra_paths() is not empty\n
+extra_directory="extra-configs"\n\n\n
+# Additional file path array
+# These be stored in destination_directory/additional_directory
+# It is setup to keep configs and changes in /etc/\n
+extra_paths=(/etc/mpd.conf
+             /etc/makepkg.conf
+             /etc/yaourtrc
+             /etc/pacman.conf
+             /etc/X11
+             /etc/lightdm
+             /etc/oblogout.conf
+            )\n' > "$config"
+
+    if ! [[ "$@" == "--new" ]]; then
+        H=20
+        clear
+        echo -e "\n\n    $info ${g}Default Config Created!!!${norm}\n
+    \n\tIf this is your first time please read on or try [-h,--help]\n
+    \n\tSettings are handled in a config file '$config'\n\n\n
+    \n\tIn order to continue it will need to be set up for your system
+    \n\tMost is done for you but some things will be different for each setup\n"
+        draw_box $R $C $H $W $col
+    else
+        echo -e "\n$info Default config created"
+    fi
+
+    exit 0
+
+}
+
+
+# draw nice box, takes a number of args
+# which set the size, offset, and colours
+draw_box() {
+
+    HORZ="-"
+    VERT="|"
+    CORNER="+"
+    BOX_HEIGHT=`expr $3 - 1`   #  -1 correction for angle char "+"
+    BOX_WIDTH=`expr $4 - 1`
+    T_ROWS=`tput lines`        #  Define current terminal dimension
+    T_COLS=`tput cols`         #  in rows and columns.
+
+    plot_char() {
+        echo -e "\E[${1};${2}H"$3
+
+    }
+
+    echo -ne "\E[3${5}m"               # Set box frame color, if defined.
+    # draw the box
+    count=1                                         #  Draw vertical lines
+    for (( r=$1; count<=$BOX_HEIGHT; r++)); do
+        plot_char $r $2 $VERT
+        let count=count+1
+    done
+    count=1
+    c=`expr $2 + $BOX_WIDTH`
+    for (( r=$1; count<=$BOX_HEIGHT; r++)); do
+        plot_char $r $c $VERT
+        let count=count+1
+    done
+    count=1                                        #  Draw horizontal lines
+    for (( c=$2; count<=$BOX_WIDTH; c++)); do
+        plot_char $1 $c $HORZ
+        let count=count+1
+    done
+    count=1
+    r=`expr $1 + $BOX_HEIGHT`
+    for (( c=$2; count<=$BOX_WIDTH; c++)); do
+        plot_char $r $c $HORZ
+        let count=count+1
+    done
+
+    plot_char $1 $2 $CORNER
+    plot_char $1 `expr $2 + $BOX_WIDTH` $CORNER
+    plot_char `expr $1 + $BOX_HEIGHT` $2 $CORNER
+    plot_char `expr $1 + $BOX_HEIGHT` `expr $2 + $BOX_WIDTH` $CORNER
+    tput sgr0 # restore colours
+
+}
+
+
+# resizes the terminal if user has wmctrl installed
+# if not resize the box only if terminal is too small to fit it
+# takes two args. first being width, the second is height
+resize_terminal() {
+
+    # check if we can resize the terminal
+    if hash wmctrl >/dev/null 2>&1; then
+        wmctrl -r :ACTIVE: -e 0,-1,-1,${1},${2}
+    else
+
+        # fallback to changing the box size
+        if [ $(tput cols) -lt $W ]; then
+            W=$((`tput cols`-2)) # Width
+        fi
+
+        if [ $(tput lines) -lt $H ]; then
+            H=$((`tput lines`-2)) # Height
+        fi
+
+    fi
+
+}
+
+
+#
+##
+### Setup
+##
+#
+
+resize_terminal 700 550
+
+# first config setup
+if ! [ -e "$config" ]; then
+    make_config
+fi
+
+# get config
+source "$config"
+
+# combine arrays from config
+combined_paths=(${home_paths[@]} ${config_paths[@]} ${extra_paths[@]})
+
+#
+##
+### Args
+##
+#
+
+if [ $# -gt 0 ]; then
+
+    for args in "$@"; do
+        case "$args" in
+            *s*|*S*)
+                sync="True"
+                ;;
+            *)
+                :
+        esac
+        case "$args" in
+            *v*|*V*)
+                v="v"
+                ;;
+            *)
+                :
+        esac
+        case "$args" in
+            *c*|*C*)
+                clean="True"
+                ;;
+            *)
+                :
+        esac
+    done
+
+    case "$@" in
+        -h|-H|--help)
+            clear; echo -e $usage
+            exit 0
+            ;;
+        -r*|-R*)
+            restore_configs
+            ;;
+        -b*|-B*)
+            backup_configs
+            ;;
+        -n|-N)
+            make_config --new
+            ;;
+        *)
+            echo "Invalid Option try [-h,--help]"
+            exit 2
+    esac
+
+else
+
+    resize_terminal 700 550
+
+    MENU_MSG="\n\n  Enter Number(s) from the Actions Above and Press Enter\n\n\n> "
+
+    # loop until choice is given
+    while ! [ "$choice" ]; do
+
+        clear; echo -e $menu
+        draw_box $R $C $H $W $col
+        printf "$MENU_MSG"
+        read choice
+
+        if [[ "$choice" == *9* ]]; then
+            v="v"
+        fi
+
+        case "$choice" in
+            *5*)
+                make_config --new
+                ;;
+            *2*)
+                restore_configs
+                ;;
+            *1*)
+                if [[ "$choice" == *4* ]]; then
+                    clean="True"
+                fi
+                backup_configs
+                ;;
+            3)
+                break
+                ;;
+
+            *0*)
+                clear
+                exit 0
+                ;;
+            *)
+                MENU_MSG="\n\n  Please Enter a Valid Number to Continue\t0 To Exit\n\n\n> "
+                unset choice
+        esac
+    done
+fi
+
+if [[ "$sync" = "True" ]] || [[ "$choice" == *3* ]]; then
+    commit_configs
+fi
