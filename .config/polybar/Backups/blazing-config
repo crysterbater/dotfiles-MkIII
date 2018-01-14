@@ -1,0 +1,266 @@
+;=======================================;
+;                                       ;
+;         Blazing polybar config          ;
+;                                       ;
+;=======================================;
+
+;
+; Colors
+;
+
+[colors]
+background = #2a2d34
+inactive = #707f9c
+accent = #be7369
+white = #ffffff
+bg = #2a2d34
+
+;
+; Bar
+;
+
+[bar/blazing]
+monitor = eDP1
+width = 100%
+height = 38
+offset-x = 0
+offset-y = 0
+radius = 0.0
+
+background = ${colors.bg}
+foreground = ${colors.white}
+
+border-bottom-size = 2
+border-color = ${colors.accent}
+
+module-margin-left = 1
+module-margin-right = 1
+
+padding-right = 2
+
+font-0 = Iosevka:pixelsize=13;2
+font-1 = FontAwesome:pixelsize=12;3
+font-2 = Iosevka:pixelsize=20 ;For square butt-ons
+font-3 = FontAwesome:pixelsize=10;3
+font-4 = Noto Sans CJK JP;3
+
+modules-left = bspwm
+modules-center = mpd
+modules-right = xkeyboard wired volume date powermenu
+
+wm-restack = bspwm
+;override-redirect = true
+
+[module/padding]
+type=custom/text
+content=|
+content-foreground=${colors.background}
+content-background=${colors.background}
+
+[module/openbox]
+type=internal/xworkspaces
+pin-workspaces=true
+enable-click=false
+enable-scroll=false
+format=<label-state>
+label-monitor=%name%
+label-active =%icon%%name%
+label-active-foreground =${colors.graphite}
+label-active-background =${colors.green}
+label-active-underline=${colors.graphite}
+label-active-padding=1
+label-occupied =%name%
+label-occupied-background=${colors.white}
+label-occupied-padding=1
+label-urgent=%index%
+label-urgent-foreground=#000000
+label-urgent-background=#bd2c40
+label-urgent-underline=#9b0a20
+label-empty =%name%
+label-empty-padding=1
+label-empty-background=${colors.graphite}
+label-empty-foreground=${colors.white}
+
+;
+; Mpd
+;
+[module/mpd]
+type = internal/mpd
+host = localhost
+port = 6600
+format-online = <icon-prev> <toggle> <icon-next> <label-song>
+label-song = %artist% - %title%
+label-song-ellipsis = true
+label-song-maxlen = 50
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+
+;
+; Bspwm
+;
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = "%{T3} %{T-}%{T1}%name%%{T-}%{T3} %{T-}"
+label-focused-background = ${colors.background}
+label-focused-foreground = ${colors.accent}
+label-focused-underline= #fff
+label-focused-padding = 0
+
+label-occupied = "%{T3} %{T-}%{T1}%name%%{T-}%{T3} %{T-}"
+label-occupied-foreground = ${colors.white}
+label-occupied-padding = 0
+
+label-urgent = "%{T3} %{T-}%{T1}%name%!%{T-}%{T3} %{T-}"
+label-urgent-foreground = ${colors.accent}
+label-urgent-padding = 0
+
+label-empty = "%{T3} %{T-}%{T1}%name%%{T-}%{T3} %{T-}"
+label-empty-foreground = ${colors.inactive}
+label-empty-padding = 0
+
+;
+; i3
+;
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.white}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.bg}
+label-focused-underline = ${colors.accent}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.bg}
+label-urgent-padding = 2
+
+;
+; Network
+;
+
+[module/wired]
+type = internal/network
+interface = enp3s0
+interval = 3.0
+
+format-connected = <label-connected>
+
+format-connected-foreground = ${colors.accent}
+label-connected =""
+
+format-disconnected = <label-disconnected>
+label-disconnected = %ifindex% disconnected
+label-disconnected-foreground = ${colors.white}
+
+;
+; DateTime
+;
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = ""
+date-alt = " %a %d %b"
+
+time = %H:%M
+time-alt = %H:%M
+
+label = %date% %time%
+
+;
+; Volume
+;
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${colors.white}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.background}
+format-muted-background =
+label-muted = sound muted
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+;
+; Powermenu
+;
+
+[module/powermenu]
+type = custom/menu
+
+label-open = ""
+label-close =
+label-separator = "  "
+
+format-foreground = ${colors.accent}
+format-background = ${colors.background}
+
+menu-0-0 = ""
+menu-0-0-exec = menu-open-1
+menu-0-1 = ""
+menu-0-1-exec = menu-open-2
+menu-0-2 = ""
+menu-0-2-exec = menu-open-3
+menu-0-3 = ""
+
+menu-1-0 = ""
+menu-1-0-exec = systemctl suspend -i
+menu-1-1 = ""
+
+menu-2-0 = ""
+menu-2-0-exec = systemctl reboot -i
+menu-2-1 = ""
+
+menu-3-0 = ""
+menu-3-0-exec = systemctl poweroff -i
+menu-3-1 = ""
+
+;
+; Window-list
+;
+
+[module/windowlist]
+type = custom/script
+exec = $XDG_CONFIG_HOME/polybar/windowlist.sh
+interval = 0.3
+scroll-up = bspc node -f prev.local
+scroll-down = bspc node -f next.local
+
+[global/wm]
+
+[settings]
+screenchange-reload = true
