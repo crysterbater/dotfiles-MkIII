@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>STARTPAGES FOR DAYS NIGGAAA</title>
+		<link rel="shortcut icon" type="image/png" href="icons/favicon01.png"/>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript">
+		             $(document).ready(function() {
+				var btn = document.getElementsByClassName('choice');
+				var link = document.getElementsByClassName('button');
+				for(i=0; i<btn.length;i++) {
+					var btn_value = btn[i].options[btn[i].selectedIndex].value;
+					link[i].href = btn_value;
+				};
+		        		var now = new Date();
+				var hour    = now.getHours();
+				var minute  = now.getMinutes();
+				var day = now.getDay();
+				var L = ["mon.", "tues.", "wed.", "thurs.", "fri.", "sat.","sun."];
+				if(hour < 10) {
+					hour = "0" + hour;
+				}
+				if (day > 0) {
+					day = day-1;
+				}
+				if (day == 0) {
+					day = 6;
+				}
+				if (minute < 10) {
+					minute = "0" + minute;
+				};
+				document.getElementById("time_box").innerHTML = hour + "'" + minute;
+				document.getElementById("day_box").innerHTML = L[day];
+			});
+		 </script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="banner">
+				<div id="message">
+					<div id="message_box">× welcome ×</div>
+				</div>
+				<div id="time_box"></div>
+				<div id="day_box"></div>
+			</div>
+	                           <div class="form">
+	                           		<input  id="searchbox" name="q" type="text" autocomplete="off" class="cleardefault" maxlength="100"   placeholder="search for inspiration." size="17" autofocus="autofocus" />
+	                         	              <input type="submit" id="image-button" value=""></input>
+	                           </div>
+			<div id="main">
+				<div class="card" style="background-color: #42729B; color: #4387B5;">
+					<a class="button">
+						<img src="avatar/avatar_01.png" class="avatar"></img>
+					</a>
+					<p>Favorites</p>
+					<select onchange="if (this.value) window.location.href=this.value, this.selected;" class="choice">
+						<option value="https://github.com/">github</option>
+						<option value="https://dropbox.com/h/">dropbox</option>
+						<option value="https://pastebin.com">pastebin</option>
+						<option value="https://plus.google.com/">google+</option>
+						<option value="https://inbox.google.com/">inbox</option>
+					</select>
+				</div>
+				<div class="card" style="background-color: #FCB941; color: #F0A830;">
+					<a class="button">
+						<img src="avatar/avatar_02.png" class="avatar"></img>
+					</a>
+					<p>Media</p>
+					<select onchange="if (this.value) window.location.href=this.value"" class="choice">
+						<option value="https://soundcloud.com/">soundcloud</option>
+						<option value="https://youtube.com/">youtube</option>
+						<option value="https://last.fm"/>last.fm</option>
+						<option value="https://bandcamp.com/">bandcamp</option>
+					</select>
+				</div>
+				<div class="card" style="background-color: #F8D9D5; color: #E6567A;">
+					<a class="button">
+						<img src="avatar/avatar_03.png" class="avatar"></img>
+					</a>
+					<p>Visual</p>
+					<select onchange="if (this.value) window.location.href=this.value"" class="choice">
+						<option value="https://designschool.canva.com/blog/brand-color-palette/">Design School</option>
+						<option value="https://colourlovers.com/">colourlovers</option>
+						<option value="https://palettable.io"/>palettable.io</option>
+						<option value="https://htmlcolorcodes.com/">ColorCodes</option>
+						<option value="https://coolors.co/">coolors.co</option>
+						<option value="http://flatcolors.net/">flatcolors</option>
+					</select>
+				</div>
+				<div class="card" style="background-color: #4D545E; color: #4D545E;">
+					<a class="button">
+						<img src="avatar/avatar_04.png" class="avatar"></img>
+					</a>
+					<p>Rice</p>
+					<select onchange="if (this.value) window.location.href=this.value"" class="choice">
+						<option value="https://www.terminal.sexy/">terminal.sexy</option>
+						<option value="https://opendesktop.org/">opendesktop</option>
+						<option value="https://reddit.com/r/unixporn">unixporn</option>
+						<option value="https://dotshare.it/">dotshare</option>
+					</select>
+				</div>
+				<div class="card" style="background-color: #E26E67; color: #E74C3C;">
+					<a class="button">
+						<img src="avatar/avatar_05.png" class="avatar"></img>
+					</a>
+					<p>art</p>
+					<select onchange="if (this.value) window.location.href=this.value"" class="choice">
+						<option value="https://www.pixiv.net/">pixiv.net</option>
+						<option value="https://unsplash.com/">unsplash</option>
+						<option value="https://boards.4chan.org/wg/">WG</option>
+						<option value="https://alpha.wallhaven.com/">wallhaven</option>
+					</select>
+				</div>
+				<div class="card" style="background-color: #64DDBB; color: #2CC990;">
+					<a class="button">
+						<img src="avatar/avatar_06.png" class="avatar"></img>
+					</a>
+					<p>misc</p>
+					<select onchange="if (this.value) window.location.href=this.value"" class="choice">
+						<option value="https://medium.com/">medium</option>
+						<option value="https://tapatalk.com/groups/archlabs/index.php">ArchLabs Forum</option>
+						<option value="https://www.goo.gl/">URL shortener</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/search.js"></script>
+</html>

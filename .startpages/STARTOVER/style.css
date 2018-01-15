@@ -1,0 +1,144 @@
+	* {
+	    	font-family: "Roboto", "Helvetica" !important;
+	    	outline: none;
+	}
+	html,
+	body {
+		background: #F9F9F9;
+		height: 100% !important;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+	#container {
+		/* MAIN CONTAINER */
+		background: #F9F9F9;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		text-align: center;
+	}
+	#banner {
+		background: no-repeat url("background/background_02.png") center 30%;
+		background-size: cover;
+		height: 25%;
+		width: 100%
+	}
+	#banner #message {
+		background: rgba(33, 33, 33, .5);
+		height: 100% !important;
+		width: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	#banner #message #message_box {
+		color: #FFF;
+		font-family: "Bebas Neue" !important;
+		font-size: 40pt;
+		font-weight: bold;
+		letter-spacing: 10px !important;
+	}
+	#banner #time_box {
+		color: #7E7E7E;
+		right: 20px;
+		text-align: right;
+	}
+	#banner #day_box {
+		color: #00B5B5;
+		left: 20px;
+		text-align: left;
+	}
+	#banner #time_box,
+	#banner #day_box {
+		background: #FFF;
+		box-shadow: 0px 1px 2px rgba(0,0,0,.1) !important;
+		border-radius: 2px !important;
+		font-family: "Roboto";
+		font-size: 14pt;
+		font-stretch: condensed;
+		padding: 10px 15px;
+		width: auto !important;
+		position: absolute;
+		bottom: 20px;
+	}
+	#searchbox {
+		border: none;
+		box-shadow: 0px 1px 2px rgba(0,0,0,.1) !important;
+		color: #60646D;
+		font-size: 11pt !important;
+		font-stretch: condensed;
+		font-weight: bold;
+		letter-spacing: .2px !important;
+		text-transform: uppercase;
+		height: 40px;
+		width: 100%;
+		padding: 15px 20px
+	}
+	#image-button {
+		background-color: transparent;
+		background-image: url("icons/search_icon.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 18px auto;
+		border: none;
+		position: absolute;
+		height: 70px;
+		width: 70px;
+		margin-top: -70px;
+		right: 1px;
+	}
+	#main {
+		height: auto;
+		width: 100%;
+		padding: 22px 0px;
+		margin-top: 60px;
+	}
+	.card {
+		background: #F6F7FB;
+		box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+		border-radius: 2px;
+		width: 12vw;
+		height: auto;
+		padding-bottom: 1.2vw;
+		margin-bottom: 20px;
+		margin-right: 15px;
+		display: inline-block !important;
+		text-align: center;
+	}
+	.card .avatar {
+		border-radius: 50%;
+		box-shadow: 0px 1px 2px rgba(0,0,0,.1);
+		height: 8.5vw;
+		width: 8.5vw;
+		margin-top: 30px;
+	}
+	.card p {
+		color: #FFF;
+		font-family: "Roboto", "KFhimaji" !important;
+		font-stretch: condensed;
+		font-weight: bold;
+		letter-spacing: 4px;
+		text-transform: uppercase;
+	}
+	select {
+		background: #FFF;
+		border: none;
+		box-shadow: 0px 1px 2px rgba(0,0,0,.1);
+		color: inherit;
+		font-family: "Roboto", "KFhimaji" !important;
+		font-size: 11.5pt;
+		font-stretch: condensed;
+		font-weight: bold;
+		letter-spacing: .5px;
+		padding: 10px;
+		width: 83%;
+		text-align: center;
+		text-transform: uppercase;
+		margin-top: 14px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		text-indent: -2px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
