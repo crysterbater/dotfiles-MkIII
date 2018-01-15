@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+	        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	        <title>Home -- Welcome to the internet</title>
+	        <link rel="shortcut icon" type="image/png" href="icons/favicon.png"/>
+	        <link rel="stylesheet" type="text/css" href="style.css">
+	        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	        <script type="text/javascript">
+		        $(document).ready(function() {
+			$('.button').click(function(e) {
+				e.preventDefault();
+				setContent($(this));
+			});
+
+			$('.button.active').length && setContent($('.button.active'));
+
+			function setContent($el) {
+				$('.button').removeClass('active');
+				$('.box').hide();
+				$el.addClass('active');
+				$($el.data('rel')).show();
+			}
+
+			function changeBg() {
+				var now = new Date();
+				var n = now.getHours();
+
+				if ( n >= 12 && n <= 17 ) {
+				       	picture = "url('background/background01.png')";
+					color1 = "#1F9EA3";
+					color2 = "#4CD4B0";
+					message="おはよう"
+				} else if ( n >= 18  && n <= 24) {
+					picture = "url('background/background02.png')";
+					color1 = "#0C1015";
+					color2 = "#BFCAFF";
+					message=" こんにちは"
+				} else if ( n >= 0 && n <= 11 ) {
+					picture = "url('background/background03.png')";
+					color1 = "#0f1419";
+					color2 = "#CCCCCC";
+					message=" こんばんは"
+				}
+				document.getElementById("container").style.background = picture;
+				document.getElementById("border").style.background = color1;
+				document.getElementById('box1').style.color = document.getElementById('box2').style.color = document.getElementById('box3').style.color = color2;
+				document.getElementById("details").style.background = color2;
+				document.getElementById("message").innerHTML = message;
+			 }
+			 changeBg();
+		        });
+	        </script>
+	</head>
+	<body>
+	        	<div id="container">
+		              <div class="sidebar">
+		                              <div id="border"></div>
+		                              <button id="first-btn" class="button active" data-rel="#box1">01</button>
+			                              <div class="box" id="box1">
+			                                	<h1>Favourite</h1>
+						<a href="https://github.com">github</a>
+						<a href="https://dropbox.com">Dropbox</a>
+						<a href="https://pastebin.com">Pastebin</a>
+						<a href="http://plus.google.com">google+</a>
+						<a href="http://inbox.google.com">inbox</a>
+						<a href="http://reddit.com">Reddit</a>
+						<a href="https://thepiratebay.org/">torrents</a>
+			                              </div>
+		                              <button id="second-btn" class="button" data-rel="#box2">02</button>
+			                              <div class="box" id="box2">
+			                                           <h1>Media</h1>
+				                            <a href="https://www.youtube.com/">YouTube</a>
+				                            <a href="https://soundcloud.com/stream">Soundcloud</a>
+				                            <a href="http://www.last.fm/">last.fm</a>
+				                            <a href="https://bandcamp.com/">Bandcamp</a>
+				                            <a href="http://www.pixiv.net/">pixiv</a>
+				                            <a href="http://www.deviantart.com/browse/all/">DeviantArt</a>
+				                            <a href="https://www.tumblr.com/dashboard">tumblr</a>
+
+			                            </div>
+		                            <button id="third-btn" class="button" data-rel="#box3">03</button>
+			                            <div class="box" id="box3">
+			                                           <h1>Design</h1>
+				                            <a href="https://colourlovers.com/">ColourLovers</a>
+																		<a href="https://designschool.canva.com/blog/brand-color-palette/">Design School</a>
+				                            <a href="http://coolors.co/">coolors.co</a>
+				                            <a href="https://palettable.io/">Palettable</a>
+				                            <a href="http://flatcolors.net/">Flat Colors</a>
+				                            <a href="https://htmlcolorcodes.com/">HTML Color Codes</a>
+				                            <a href=""></a>
+			                              </div>
+		             	</div>
+	                           <div class="form">
+	                           		<input  id="searchbox" name="q" type="text" autocomplete="off" class="cleardefault" maxlength="100"   placeholder="search engine ..." size="17" autofocus="autofocus" />
+	                           		<input type="submit" id="image-button" value=""></input>
+	                           </div>
+			<div id="details">
+				<div id="weather">
+					<h2 id="description"></h2>
+					<h3 id="temp_curr"></h3>
+				</div>
+			</div>
+			<div id="message"></div>
+	        	</div>
+	</body>
+	<script type="text/javascript" src="js/search.js"></script>
+  	<script src="js/weather.js"></script>
+</html>

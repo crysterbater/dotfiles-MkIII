@@ -1,0 +1,175 @@
+	* {
+	    	font-family: "Helvetica Neue World", "Source Han Sans JP Regular", "KFhimaji" !important;
+	}
+	html,
+	body {
+		background-color: #F4F6F6  !important;
+		height: 100% !important;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+	#container {
+		/* MAIN CONTAINER */
+		background-position: center !important;
+		background-repeat: no-repeat !important;
+		background-size: cover !important;
+		width: inherit;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	#details {
+		/* WEATHER WIDGET */
+		border-radius: 3px;
+		width: 180px;
+		height: 50px;
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		text-align: center;
+	}
+	#weather {
+		line-height: 17px;
+	}
+	#description {
+		color: #FFF;
+		font-family: "Helvetica World" !important;
+		font-size: 12pt;
+		display: inline-block;
+		text-transform: lowercase;
+
+	}
+	#temp_curr {
+		color: #FFF;
+		font-family: "Helvetica Neue" !important;
+		font-size: 12pt;
+		display: inline-block;
+		padding-left: 2px;
+	}
+	.form {
+		/* SEARCH BAR */
+		position: absolute !important;
+		z-index: 9999 !important;
+		top: 90px !important;
+		right: 0px !important;
+		margin: auto !important;
+		text-align: right;
+	}
+	#image-button {
+		background-image: url("icons/submit.png");
+		background-repeat: no-repeat;
+		background-position: left;
+		background-size: 27px auto;
+		padding: 17px 20px 17px 16px;
+		width: 10px;
+		margin-left: -26px;
+	}
+	input {
+		background: #0f1419;
+		border: none;
+		border-radius: 2px;
+		color: #FFF;
+		font-size: 12pt;
+		font-stretch: condensed;
+		padding: 17px 20px;
+		text-align: left;
+		width: 180px;
+		margin-right: 20px;
+		transition: .3s ease-in-out !important;
+	}
+	input:focus {
+		width: 300px;
+		transition: .3s ease-in-out !important;
+	}
+	#message {
+		color: #FFF;
+		font-size: 16pt;
+		font-family: "Helvetica Neue World" !important;
+		font-weight: bold;
+		height: 50px;
+		width: 200px;
+		letter-spacing: .5px;
+		line-height: 50px;
+		position: absolute;
+		right: 34px;
+		bottom: 20px;
+		text-align: right;
+	}
+	.sidebar {
+		/* SIDEBAR */
+		background: #0f1419;
+		width: 20% !important;
+		height: 100% !important;
+		margin-left: -20% !important;
+		transition: all .3s ease-in-out;
+		z-index: 99 !important;
+	}
+	.sidebar:hover {
+		margin-left: 0% !important;
+	}
+	#border {
+		/* SIDEBAR BORDER */
+		height: 100% !important;
+		width: 50px !important;
+		position: absolute;
+		margin-left: 20%;
+		opacity: .9;
+	}
+	.box {
+		/* SIDEBAR BOX LINK */
+		padding-right: 30px;
+		padding-top: 45%;
+	}
+	.box a {
+		color: #FFF;
+		font-family: "Helvetica Neue" !important;
+		font-size: 13pt;
+		line-height: 30px;
+		text-align: right;
+		text-decoration: none;
+		display: block !important;
+		transition: all .3s ease-in-out;
+	}
+	.box a:hover {
+		color: inherit;
+	}
+	.box h1 {
+		color: #FFF;
+		font-family: "Helvetica Rounded", "Helvetica Neue World" !important;
+		text-align: right;
+	}
+	.button {
+		/* SIDEBAR BUTTONS */
+		background: transparent;
+		border: none !important;
+		color: #000;
+		font-family: "Helvetica World" !important;
+		position: absolute;
+		margin-left: 20%;
+		margin-top: 18%;
+		width: 50px;
+	}
+	.button.active {
+		background: #1E272B;
+		color: #FFF;
+	}
+	#first-btn {
+		padding: 17px 15px;
+		top: 10px;
+	}
+	#second-btn {
+		padding: 17px 14px;
+		top: 62px;
+	}
+	#third-btn {
+		padding: 17px 14px;
+		top: 114px;
+	}
+	#click-btn:active .sidebar {
+		margin-left: 0px !important;
+	}
