@@ -35,6 +35,7 @@
 	}
 	#weather {
 		line-height: 17px;
+		background-color: #F1BEB7;
 	}
 	#description {
 		color: #FFF;
@@ -70,7 +71,7 @@
 		margin-left: -26px;
 	}
 	input {
-		background: #0f1419;
+		background: #1E272B;
 		border: none;
 		border-radius: 2px;
 		color: #FFF;
@@ -123,7 +124,7 @@
 	.box {
 		/* SIDEBAR BOX LINK */
 		padding-right: 30px;
-		padding-top: 45%;
+		padding-top: 75%;
 	}
 	.box a {
 		color: #FFF;
@@ -141,13 +142,15 @@
 	.box h1 {
 		color: #FFF;
 		font-family: "Helvetica Rounded", "Helvetica Neue World" !important;
+		font-size: 13pt;
+		line-height: 20px;
 		text-align: right;
 	}
 	.button {
 		/* SIDEBAR BUTTONS */
 		background: transparent;
 		border: none !important;
-		color: #000;
+		color: #FFFFFF;
 		font-family: "Helvetica World" !important;
 		position: absolute;
 		margin-left: 20%;
@@ -156,7 +159,7 @@
 	}
 	.button.active {
 		background: #1E272B;
-		color: #FFF;
+		color: #F1BEB7;
 	}
 	#first-btn {
 		padding: 17px 15px;
