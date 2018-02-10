@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+"""Daemon proccess, checks current mouse position
+Automatically hides / shows the bar when mouse is above threshhold
+"""
+
+import re
+import subprocess
+import time
+
+
+MIN_HEIGHT = 5
+MAX_HEIGHT = 50
+HEIGHT = MIN_HEIGHT
+SHOW_CMD = 'xdotool search --name polybar windowmap'
+HIDE_CMD = 'xdotool search --name polybar windowunmap'
+
+
+def get_y_position():
+    ''' Returns an integer based on cursor position '''
+
+    output = subprocess.check_output('xdotool getmouselocation --shell',
+                                     shell=True).decode('utf-8')
+    return int(re.search(r'Y=(\d{1,})', output).groups()[0]) + 1
+
+
+HIDDEN = True
+subprocess.call(HIDE_CMD, shell=True)
+
+while True:
+    try:
+        Y_POS = get_y_position()
+        time.sleep(.30)
+        if Y_POS < HEIGHT and HIDDEN:
+            subprocess.call(SHOW_CMD, shell=True)
+            HIDDEN = False
+            HEIGHT = MAX_HEIGHT
+        elif Y_POS > HEIGHT and not HIDDEN:
+            time.sleep(1.0)
+            subprocess.call(HIDE_CMD, shell=True)
+            HIDDEN = True
+            HEIGHT = MIN_HEIGHT
+    except KeyboardInterrupt:
+        exit()

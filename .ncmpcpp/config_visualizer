@@ -1,0 +1,58 @@
+mpd_music_dir = "/home/vlada/Downloads/"
+message_delay_time = "1"
+
+song_status_format = "{%a - %t}"
+song_list_format = "$8 {%a > %t} $R{%l} "
+song_window_title_format = "{%a - }{%t}|{%f}"
+alternative_header_first_line_format = "{$5%t$/b}"
+alternative_header_second_line_format = "$7{$b%a$/b}$9 - $5{%b}$9 $8{(%y)}"
+
+now_playing_prefix = "$b"
+selected_item_suffix = "$3"
+selected_item_prefix = "$11"
+browser_playlist_prefix = "$3>$9 "
+
+playlist_display_mode = "classic"
+playlist_disable_highlight_delay = 1
+locked_screen_width_part = 35
+ask_for_locked_screen_width_part = yes
+discard_colors_if_item_is_selected = "yes"
+user_interface = "classic" (classic/alternative)
+
+progressbar_look = "   "
+progressbar_elapsed_color = "4"
+startup_screen = visualizer
+
+mouse_support = "no"
+external_editor = "vim"
+cyclic_scrolling = "yes"
+header_visibility = "no"
+titles_visibility = "no"
+statusbar_visibility = "no"
+follow_now_playing_lyrics = "yes"
+use_console_editor = "yes"
+
+colors_enabled = "yes"
+color1 = "white"
+color2 = "yellow"
+volume_color = "white"
+empty_tag_color = "black"
+header_window_color = "white"
+state_line_color = "white"
+state_flags_color = "white"
+main_window_color = "white"
+main_window_highlight_color = "black"
+progressbar_color = "black"
+statusbar_color = "white"
+alternative_ui_separator_color = "black"
+window_border_color = "white"
+active_column_color = "black"
+active_window_border = "cyan"
+
+visualizer_in_stereo = "no"
+visualizer_look = "○▋"
+visualizer_type = "ellipse"
+visualizer_sync_interval = "15"
+visualizer_output_name = "mpd_fifo"
+visualizer_fifo_path = "/home/sola/.mpd/mpd.fifo"
+visualizer_color = 240,240,240,240,240,240,242,242,244,12,12

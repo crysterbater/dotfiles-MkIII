@@ -1,0 +1,10 @@
+[Scheme]
+Name=froggy
+ColorForeground=#ffffff
+ColorBackground= #0B1219
+ColorCursor=#5A5A4C
+ColorBold=#5A5A4C
+ColorPalette=rgb(11,18,25);rgb(184,252,179);rgb(122,206,239);rgb(184,252,179);rgb(178,211,247);rgb(133,174,227);rgb(102,121,189);rgb(222,231,243);rgb(19,24,29);rgb(184,252,179);rgb(62,172,210);rgb(90,162,187);rgb(112,147,159);rgb(184,252,179);rgb(184,252,179);rgb(255,255,255)
+TabActivityColor=#679945
+ColorSelectionBackground=#EAEADC
+ColorSelection=#5A5A4C

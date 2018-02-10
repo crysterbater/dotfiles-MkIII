@@ -8,6 +8,6 @@ cmd = cmd[0]
 if cmd == "Playing":
      print('')
 elif cmd == 'Paused':
-     print('')
+     print('')
 else:
-    print('')
+    print('')

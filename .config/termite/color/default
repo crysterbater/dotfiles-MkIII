@@ -1,0 +1,35 @@
+[colors]
+background      = rgba(13,17,22,0.99)
+foreground      = #ffffff
+foreground_bold = #c5c8c6
+cursor          = #ffffff
+
+# Black, Gray, Silver, White
+color0  = #0E1E35
+color8  = #60FBF6
+color7  = #ffffff
+color15 = #ffffff
+
+# Red
+color1  = #EA207D
+color9  = #EA207D
+
+# Green
+color2  = #FD807C
+color10 = #FD807C
+
+# Yellow
+color3  = #F6B376
+color11 = #F6B376
+
+# Blue
+color4  = #FFD6D6
+color12 = #FFD6D6
+
+# Purple
+color5  = #20D4EA
+color13 = #20D4EA
+
+# Teal
+color6  = #2BFFC2
+color14 = #2BFFC2

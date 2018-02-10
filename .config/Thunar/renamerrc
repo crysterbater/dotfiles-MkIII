@@ -4,7 +4,7 @@ LastActiveRenamer=ThunarSbrInsertRenamer
 
 [ThunarSbrInsertRenamer]
 Offset=9
-Mode=THUNAR_SBR_INSERT_MODE_OVERWRITE
+Mode=THUNAR_SBR_INSERT_MODE_INSERT
 OffsetMode=THUNAR_SBR_OFFSET_MODE_LEFT
-Text=moody
+Text=01
 

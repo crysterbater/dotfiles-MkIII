@@ -1,0 +1,59 @@
+mpd_music_dir = "/home/sola/Downloads/"
+message_delay_time = "2"
+
+song_list_format = "$8 {%a > %t} $R{%l} "
+song_status_format = "{%a - %t}"
+alternative_header_first_line_format = "{$5%t$/b}"
+alternative_header_second_line_format		= "$7{$b%a$/b}$9 - $5{%b}$9 $8{(%y)}"
+now_playing_prefix = "$b"
+now_playing_suffix = "$/b"
+
+playlist_disable_highlight_delay = 1
+
+browser_playlist_prefix = "$7$bplaylist$/b$9 "
+selected_item_prefix = "$6"
+selected_item_suffix = "$9"
+song_window_title_format = "{%a - }{%t}|{%f}"
+
+song_columns_list_format = "(8)[white]{l} (28)[cyan]{a} (28)[white]{b} (50)[cyan]{t}"
+discard_colors_if_item_is_selected = "yes"
+
+progressbar_look = "━━━"
+progressbar_elapsed_color = "12"
+
+user_interface = "classic" (classic/alternative)
+playlist_display_mode = classic
+statusbar_visibility = "yes"
+header_visibility = "no"
+titles_visibility = "no"
+cyclic_scrolling = "yes"
+follow_now_playing_lyrics = "yes"
+startup_screen = visualizer
+mouse_support = "no"
+external_editor = "vim"
+use_console_editor = "yes" (set to yes, if your editor is console app)
+
+colors_enabled = "yes"
+empty_tag_color = "cyan"
+header_window_color = "white"
+volume_color = "white"
+state_line_color = "white"
+state_flags_color = "white"
+main_window_color = "white"
+color1 = "white"
+color2 = "cyan"
+main_window_highlight_color = "white"
+progressbar_color = "black"
+statusbar_color = "white"
+alternative_ui_separator_color = "black"
+active_column_color = "cyan"
+window_border_color = "white"
+active_window_border = "cyan"
+
+visualizer_in_stereo = "no"
+visualizer_fifo_path = "/home/sola/.mpd/mpd.fifo"
+visualizer_output_name = "mpd_fifo"
+visualizer_sync_interval = "15"
+visualizer_look = "○▋"
+visualizer_type = "ellipse" (spectrum/wave)
+visualizer_color = 240,240,240,240,240,240,242,242,244,12,12

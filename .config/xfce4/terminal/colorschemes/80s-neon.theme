@@ -1,0 +1,13 @@
+[Scheme]
+
+Name=80s neon
+
+ColorPalette=rgb(0,0,0);rgb(51,255,0);rgb(255,0,153);rgb(255,0,46);rgb(0,112,255);rgb(189,0,255);rgb(0,252,255);rgb(204,255,0);rgb(255,122,0);rgb(34,170,0);rgb(196,0,117);rgb(184,0,33);rgb(0,89,185);rgb(115,0,155);rgb(1,155,155);rgb(199,199,0)
+
+ColorForeground=#88888a8a8585
+
+ColorBackground=#000000000000
+
+TabActivityColor=#bdbd0000ffff
+
+ColorCursor=#33FF00

@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+color=F5B0B1
+color2=D0D0D0
+plainblocc="%{F$color2}◽"
+cur=`xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}'`
+tot=`xprop -root _NET_NUMBER_OF_DESKTOPS | awk '{print $3}'`
+for w in `seq 0 $((cur - 1))`; do line="${line}$plainblocc "; done
+blocc="%{F$color}◾"
+line="${line}$blocc"
+for w in `seq $((cur + 2)) $tot`; do line="${line} $plainblocc"; done
+echo "$line"

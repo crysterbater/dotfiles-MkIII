@@ -1,0 +1,11 @@
+[Scheme]
+Name=Vin dark
+ColorForeground=#6D8476
+ColorBackground=#181A28
+ColorCursor=#6D8476
+ColorBold=#6D8476
+ColorPalette=#282A38;#A3415C;#487D14;#7D851D;#5A5DA8;#AC587A;#13865A;#E0E2DA;#181A28;#8D522D;#3F4D24;#626442;#727584;#8858A5;#6D8476;#F0F2EA
+TabActivityColor=#487D14
+ColorSelectionBackground=#282A38
+ColorSelection=#6D8476
+

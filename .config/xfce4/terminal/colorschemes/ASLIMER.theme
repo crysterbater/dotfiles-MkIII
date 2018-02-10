@@ -1,0 +1,10 @@
+[Scheme]
+Name=aslimer
+ColorForeground=#CFDDE9
+ColorBackground=#232F39
+ColorCursor=#B8FCB3
+ColorBold=#B8FCB3
+ColorPalette=#0B1219;#B8FCB3;#7ACEEF;#B8FCB3;#B2D3F7;#85AEE3;#13865A;#E0E2DA;#6679BD;#BFDBC2;#B8FCB3;#3EACD2;#5AA2BB;#70939F;#B8FCB3;#F0F2EA
+TabActivityColor=#487D14
+ColorSelectionBackground=#E0E2DA
+ColorSelection=#3F4D24
