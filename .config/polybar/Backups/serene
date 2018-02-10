@@ -1,0 +1,372 @@
+; [settings]
+; throttle_ms = 50
+; throttle_limit = 3
+
+[bar/buttone]
+monitor   = eDP1
+
+	wm-restack = true
+	; bottom = true
+	width = 100%
+	; height = 34
+	height = 30
+	clickareas = 35
+	dock = false
+    radius = 0
+   monitor = eDP1
+
+    #border-top-size = 5
+    #border-size = 9
+	#border-bottom-size = 0
+	#border-color = #00000000
+
+	tray-background = #ee211D1B
+	background = #18181A
+	foreground = #D0D0D0
+	linecolor = ${bar/bottom.background}
+
+	locale = en_US.UTF8
+
+	tray-position = falae
+	, tray-detached = true
+
+	#spacing = 1
+    separator = " "
+	;spacing = 0
+	line-size = 2
+	padding-left = 1
+	padding-right = 1
+	module-margin-left = 0
+	module-margin-right = 0
+	;module_margin_left = 1
+	;module_margin_right = 1
+
+	;font-0 = envypn:pixelsize=13;0
+	font-0 = artwiz lemon:size=10;2
+	; font-2 = tewi:size=8;-1
+	font-1 = FontAwesome:size=7;3
+	font-2 = artwiz lemon:size=10;1
+	font-3 = wuncon siji:pixelsize=6;2
+
+
+	modules-left   = desktops xwindow
+        modules-center =  date
+	modules-right  = wlan volume battery
+
+[bar/butwo]
+
+	width = 100%
+	height = 35
+	dock = true
+
+	background = #00000000
+
+        font-0 = tewi:size=8;2
+        font-1 = MaterialIcons:size=10;1
+        font-2 = FontAwesome:size=14;2
+        font-3 = tewi:size=10;1
+        font-4 = tewi:size=10;1
+
+	border-size = 10
+	border-color = #00000000
+
+	monitor = eDP1
+	modules-center = i3
+
+[bar/butt]
+
+	bottom = true
+	width = 100%
+	height = 28
+	dock = false
+
+monitor   = eDP1
+
+	background = #cc262626
+	foreground = #ccD0D0D0
+	linecolor = ${bar/top.background}
+
+	spacing = 4
+	lineheight = 2
+	padding-left = 2
+	padding-right = 5
+	module-margin-left = 3
+	module-margin-right = 3
+    format--spacing = N
+	;font-0 = envypn:pixelsize=13;0
+	font-0 = Sans-Regular:size=8;3
+	font-1 = MaterialIcons:size=10;3
+	; font-2 = Termsynu:size=8;-1
+	font-2 = FontAwesome:size=10;3
+	font-3 = Siji:size=10;3
+	font-4 = Monospace:size=10;3
+
+	modules-left = mocprev mocrun playstop mocnext mocp
+	modules-center = powermenu
+	modules-right = volume date
+
+[bar/butext]
+	;inherit_from = bar/bottom
+	monitor   = eDP1
+
+
+	bottom = true
+	width = ${bar/bottom.width}
+	height = ${bar/bottom.height}
+
+	background = ${bar/bottom.background}
+	foreground = ${bar/bottom.foreground}
+	linecolor = ${bar/bottom.linecolor}
+
+	spacing = ${bar/bottom.spacing}
+	lineheight = ${bar/bottom.lineheight}
+	padding_right = ${bar/bottom.padding_right}
+	module_margin_left = ${bar/bottom.module_margin_left}
+	module_margin_right = ${bar/bottom.module_margin_right}
+
+	font-0 = ${bar/bottom.font-0}
+	font-1 = ${bar/bottom.font-1}
+	font-2 = ${bar/bottom.font-2}
+	font-3 = ${bar/bottom.font-3}
+	font-4 = ${bar/bottom.font-4}
+
+	modules-left = i3
+	modules-right = clock
+
+
+[module/menu0]
+type = custom/menu
+
+format = <label-toggle> <menu>
+;format-underline = ${colors.white}
+#format-padding = 1
+;format-margin = 1
+
+;format-background = ${colors.black}
+
+menu-0-0 = |
+menu-0-0-exec = sudo shutdown -P now
+menu-0-1 = |
+menu-0-1-exec = sudo reboot
+menu-0-2 = 
+
+label-open-foreground = #be918e
+label-open = 
+label-close =
+
+[module/cpu]
+	type = internal/cpu
+	interval = 2
+	format = <label>
+    format-prefix = " "
+    #format-prefix-foreground = #FFFFFF
+    label = %percentage%%
+
+	bar-load-width = 15
+	bar-load-foreground-0 = #26D292
+	bar-load-foreground-1 = #26D292
+	bar-load-foreground-2 = #fba922
+	bar-load-foreground-3 = #ff5555
+	bar-load-indicator = ▣
+	bar-load-indicator-foreground = #ff
+	bar-load-indicator-font = 4
+	bar-load-fill = ■
+	bar-load-fill-font = 4
+	bar-load-empty = □
+	bar-load-empty-font = 4
+	bar-load-empty-foreground = #444444
+
+[module/weather]
+type = custom/script
+exec = /home/kisame/.config/polybar/weather.sh
+click-middle = /home/kisame//config/polybar/weather.sh
+label = %output%
+interval = 3600
+
+[module/date]
+type = internal/date
+interval = 60
+
+date = "%date% %time%"
+
+time =%I:%M
+time-alt =%H:%M:%S
+
+; format-prefix = " "
+; format-prefix-foreground = #F5B0B1
+; format-underline = #0a6cf5
+
+label =%time%
+
+[module/disk-root]
+	type = custom/script
+	format =     <output>
+	exec = BLOCK_INSTANCE='/' /usr/lib/i3blocks/disk | head -1
+
+[module/i3]
+	type = internal/i3
+ws-icon-0 = 1;1
+    ws-icon-1 = 2;2
+    ws-icon-2 = 3;3
+    ws-icon-3 = 4;4
+    ws-icon-4 = 5;5
+    ws-icon-5 = 6;6
+    ws-icon-6 = 7;7
+    ws-icon-7 = 8;8
+    ws-icon-8 = 9;9
+    ws-icon-9 = 10;10
+	pin-workspaces = true
+
+	label-focused = %icon%
+	label-focused-foreground = #ffffff
+	label-focused-background = #18181A
+	label-focused-underline = #be918e
+	label-focused-padding = 2
+
+	label-unfocused = %icon%
+	label-unfocused-padding = 2
+
+	label-visible = %icon%
+	label-visible-underline = #555555
+	label-visible-padding = 2
+
+	label-urgent = %icon%
+	label-urgent-foreground = #000000
+	label-urgent-background = #bd2c40
+	label-urgent-padding = 2
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+#format-prefix-foreground = #FFFFFF
+#format-underline = #4bffdc
+label = %percentage_used%%
+
+#[module/memory]
+#	type = internal/memory
+#	format = <label> <bar-used>
+#	label = RAM
+#
+#	interval = 3
+#
+#	bar-used-width = 30
+#	bar-used-foreground-0 = #aaff77
+#	bar-used-foreground-1 = #aaff77
+#	bar-used-foreground-2 = #fba922
+#	bar-used-foreground-3 = #ff5555
+#	bar-used-indicator = |
+#	bar-used-indicator-foreground = #ff
+#	bar-used-fill = ─
+#	bar-used-empty = ─
+#	bar-used-empty-foreground = #444444
+
+
+[module/mpd]
+	type = internal/mpd
+	clickable_progress = true
+  format-online = <label-song>
+  interval = 5
+  format-offline =
+	; label-song = %title%
+	label-song = %{F#F5B0B1}♫ %{F#D0D0D0}%title%
+
+[module/volume]
+type = internal/volume
+
+format-volume =<ramp-volume> <label-volume>
+format-muted = <label-muted>
+label-volume = "%{F#B1BBC7}%percentage% "
+label-muted = " muted"
+label-muted-foreground = #aaa
+format-volume-padding = 0
+format-muted-padding = 0
+
+ramp-volume-0 = %{F#B1BBC7}
+ramp-volume-1 = %{F#B1BBC7}
+ramp-volume-2 = %{F#B1BBC7}
+ramp-headphones-0 =
+
+[module/xwindow]
+type = internal/xwindow
+format-prefix = "%{F#B1BBC7} "
+
+; format-prefix-foreground = ${colors.red}
+
+label = "%{F#D0D0D0}%title:0:40:..% "
+;label-font = 5
+; label-foreground = ${colors.red}
+
+
+labal-maxlen = 25
+format-pading = 2
+
+
+[module/desktops]
+type = custom/script
+exec = /home/dead/.config/polybar/scripts/desktops
+
+[module/wifi]
+type = custom/script
+exec = ~/.config/polybar/wifi.sh
+interval = 15
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-charging = %{F#D0D0D0}%percentage%%
+label-discharging = %{F#D0D0D0}%percentage%%
+
+ramp-capacity-0 = %{F#B1BBC7}
+ramp-capacity-1 = %{F#B1BBC7}
+ramp-capacity-2 = %{F#B1BBC7}
+ramp-capacity-3 = %{F#B1BBC7}
+animation-charging-0 = %{F#B1BBC7}
+animation-charging-1 = %{F#B1BBC7}
+animation-charging-2 = %{F#B1BBC7}
+animation-charging-framerate = 750
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 2
+
+format-connected = <ramp-signal><label-connected>
+label-connected =  "%{F#D0D0D0}%downspeed:6% "
+format-disconnected =
+
+ramp-signal-0 = "%{F#B1BBC7}"
+ramp-signal-1 = "%{F#B1BBC7}"
+ramp-signal-2 = "%{F#B1BBC7}"
+ramp-signal-3 = "%{F#B1BBC7}"
+ramp-signal-4 = "%{F#B1BBC7}"
+
+[module/wireless-network]
+type = internal/network
+interface =wlp3s0
+interval = 3.0
+ping_interval = 10
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = : %essid%
+label-disconnected = : not connected
+label-disconnected-foreground = #ff0000
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${bar/top.foreground}
+animation-packetloss-framerate_ms = 500
+
+; vim:ft=dosini

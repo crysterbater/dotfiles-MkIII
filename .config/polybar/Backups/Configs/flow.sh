@@ -1,7 +1,9 @@
 #!/bin/bash
 
 pkill polybar
-polybar -r --config=/home/dead/.config/polybar/Backups/Configs/flow.config flow &
-;polybar -r --config=/home/pringle/.config/polybar/oldconfigs/slimer.config bottom &
-
+polybar -l info --config=/home/dead/.config/polybar/Backups/fuk.config barii0 &
+polybar -r --config=/home/dead/.config/polybar/Backups/fuk.config barii01 &
+polybar -r --config=/home/dead/.config/polybar/Backups/fuk.config barii02 &
+polybar -r --config=/home/dead/.config/polybar/Backups/fuk.config barii03 &
+polybar -r --config=/home/dead/.config/polybar/Backups/fuk.config barii04 &
 exit 0

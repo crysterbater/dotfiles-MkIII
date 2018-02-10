@@ -1,0 +1,54 @@
+#!/bin/bash
+clear
+# a system info script written by yours truly
+# it's hardcoded stuff, lulz
+
+red="\e[31m"
+grn="\e[32m"
+ylw="\e[33m"
+cyn="\e[36m"
+blu="\e[34m"
+prp="\e[35m"
+bprp="\e[35;1m"
+rst="\e[0m"
+blk="\e[30m"
+
+color-echo()
+{  # print with colors
+  echo -e " $red$1  $rst$2"
+}
+
+# distro
+echo
+echo
+color-echo 'Distro' 'ArchLabs'
+
+# wm
+color-echo 'WM    ' 'Openbox'
+
+
+# shell
+color-echo 'Shell ' 'ZSH'
+
+# user
+color-echo 'user' "$(whoami)   $(hostname)"
+
+
+# kernel
+color-echo 'kernel' "$(uname -mr)"
+
+
+# ascii art
+echo
+echo -e "┌──────┐   "
+echo -e " crysterbater"
+echo -e "└──────┘  "
+
+
+
+# colors
+echo
+echo -e " $red$rst  $grn$rst  $blu$rst  $ylw$rst  $cyn$rst  $prp$rst  $bprp$rst"
+echo
+echo
+echo
